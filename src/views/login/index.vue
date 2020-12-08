@@ -68,18 +68,26 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+// import { validUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
+    const validMobile = (rule, value, callback) => {
+      const regular = /^1[3-9]\d{9}$/
+      if (regular.test(value)) {
         callback()
+      } else {
+        callback('手机号不规范')
       }
     }
+    // const validateUsername = (rule, value, callback) => {
+    //   if (!validUsername(value)) {
+    //     callback(new Error('手机号不能为空'))
+    //   } else {
+    //     callback()
+    //   }
+    // }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
         callback(new Error('The password can not be less than 6 digits'))
@@ -89,12 +97,12 @@ export default {
     }
     return {
       loginForm: {
-        username: '13800000002',
-        password: '123456'
+        username: 'admin',
+        password: '1111111'
       },
       loginRules: {
         username: [
-          { required: true, trigger: 'blur', validator: validateUsername }
+          { required: true, trigger: 'blur', validator: validMobile }
         ],
         password: [
           { required: true, trigger: 'blur', validator: validatePassword }
@@ -154,7 +162,9 @@ export default {
 $bg: #283443;
 $light_gray: #68b0fe;
 $cursor: #fff;
-
+.el-form-item__error {
+    color: #fff
+  }
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
     color: $cursor;
