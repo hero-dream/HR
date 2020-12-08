@@ -18,3 +18,8 @@ export function validUsername(str) {
   const valid_map = ['admin', 'editor']
   return valid_map.indexOf(str.trim()) >= 0
 }
+// 进行封装
+export function validMobile(data) {
+  const regular = /^1[3-9]\d{9}$/
+  return regular.test(data)
+}
