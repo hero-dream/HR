@@ -27,5 +27,5 @@ export function validMobile(data) {
 
 // 密码
 export function validPassword(data) {
-  return data.length > 6 && data.length < 10
+  return data.length >= 6 && data.length <= 10
 }
