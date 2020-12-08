@@ -69,9 +69,11 @@
 
 <script>
 import { validMobile } from '@/utils/validate'
+import { validPassword } from '@/utils/validate'
 export default {
-  name: 'Login',
+
   data() {
+    // validataMobile为自定义  validMobile为封装引入的
     const validataMobile = (rule, value, callback) => {
       validMobile(value) ? callback() : callback('手机号不规范')
       // if (validMobile(value)) {
@@ -80,31 +82,25 @@ export default {
       //   callback('手机号不规范')
       // }
     }
-    // const validateUsername = (rule, value, callback) => {
-    //   if (!validUsername(value)) {
-    //     callback(new Error('手机号不能为空'))
-    //   } else {
-    //     callback()
-    //   }
-    // }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
+
+    const validataPassword = (rule, value, callback) => {
+      if (validPassword(value)) {
         callback()
+      } else {
+        callback('密码需要大于6位数并且小于10位数')
       }
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '1111111'
+        username: '13800000002',
+        password: '123456'
       },
       loginRules: {
         username: [
           { required: true, trigger: 'blur', validator: validataMobile }
         ],
         password: [
-          { required: true, trigger: 'blur', validator: validatePassword }
+          { required: true, trigger: 'blur', validator: validataPassword }
         ]
       },
       loading: false,
