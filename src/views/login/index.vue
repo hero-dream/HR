@@ -130,6 +130,7 @@ export default {
       })
     },
     handleLogin() {
+      // dispatch派发了一个异步动作，路径惯例为前端接口（与前端代码交互，向后端发送请求
       this.$store.dispatch('user/login', this.loginForm)
       // login(this.loginForm).then((res) => {
       //   console.log(res.data)

@@ -26,6 +26,7 @@ export default {
       login(data).then(res => {
         const { message, success, data } = res.data
         if (success) {
+          console.log(res.data)
           // 因为不在组件，需要单独引入
           // this.$message.success(message)
           Message.success(message)
