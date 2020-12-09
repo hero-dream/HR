@@ -1,5 +1,7 @@
 
 import { setToken, getToken } from '@/utils/auth'
+import { login } from '@/api/user'
+import { Message } from 'element-ui'
 
 export default {
   namespaced: true,
@@ -16,5 +18,24 @@ export default {
       setToken(data)
     }
   },
-  actions: {}
+  // 封装登录请求
+  actions: {
+    // 第一个login是key值
+    // 'login':function () {  }
+    login(context, data) {
+      login(data).then(res => {
+        const { message, success, data } = res.data
+        if (success) {
+          // 因为不在组件，需要单独引入
+          // this.$message.success(message)
+          Message.success(message)
+          console.log('token=' + data)
+          // this.$store.commit('user/setToken', data)
+          // 不需要写this，因为在本身操作
+          context.commit('setToken', data)
+        }
+      })
+    }
+
+  }
 }

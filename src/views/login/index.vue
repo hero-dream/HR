@@ -57,7 +57,7 @@
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
-      >登录{{ $store.state.user.token }}</el-button>
+      >登录</el-button>
 
       <div class="tips">
         <span style="margin-right:20px;">账号: 13800000002</span>
@@ -70,7 +70,7 @@
 <script>
 import { validMobile } from '@/utils/validate'
 import { validPassword } from '@/utils/validate'
-import { login } from '@/api/user'
+// import { login } from '@/api/user'
 
 export default {
 
@@ -130,32 +130,16 @@ export default {
       })
     },
     handleLogin() {
-      login(this.loginForm).then((res) => {
-        console.log(res.data)
-        const { message, success, data } = res.data
-        if (success) {
-          this.$message.success(message)
-          console.log('token=' + data)
-          this.$store.commit('user/setToken', data)
-        }
-      })
-    //   this.$refs.loginForm.validate((valid) => {
-    //     if (valid) {
-    //       this.loading = true
-    //       this.$store
-    //         .dispatch('user/login', this.loginForm)
-    //         .then(() => {
-    //           this.$router.push({ path: this.redirect || '/' })
-    //           this.loading = false
-    //         })
-    //         .catch(() => {
-    //           this.loading = false
-    //         })
-    //     } else {
-    //       console.log('error submit!!')
-    //       return false
-    //     }
-    //   })
+      this.$store.dispatch('user/login', this.loginForm)
+      // login(this.loginForm).then((res) => {
+      //   console.log(res.data)
+      //   const { message, success, data } = res.data
+      //   if (success) {
+      //     this.$message.success(message)
+      //     console.log('token=' + data)
+      //     this.$store.commit('user/setToken', data)
+      //   }
+      // })
     }
   }
 }
