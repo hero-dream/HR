@@ -1,10 +1,10 @@
 
-import { setToken } from '@/utils/auth'
+import { setToken, getToken } from '@/utils/auth'
 
 export default {
   namespaced: true,
   state: {
-    token: ''
+    token: getToken() // 设置初始，放入缓存中
   },
   mutations: {
     // 修改token的mutations
