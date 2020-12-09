@@ -131,6 +131,11 @@ export default {
     handleLogin() {
       login(this.loginForm).then((res) => {
         console.log(res.data)
+        const { message, success, data } = res.data
+        if (success) {
+          this.$message.success(message)
+          console.log('token=' + data)
+        }
       })
     //   this.$refs.loginForm.validate((valid) => {
     //     if (valid) {
