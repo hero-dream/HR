@@ -70,7 +70,7 @@
 <script>
 import { validMobile } from '@/utils/validate'
 import { validPassword } from '@/utils/validate'
-import axios from 'axios'
+import { login } from '@/api/user'
 export default {
 
   data() {
@@ -129,13 +129,7 @@ export default {
       })
     },
     handleLogin() {
-      axios({
-        method: 'POST',
-        url: 'http://localhost:8888/api/sys/login',
-        data: {
-          mobile: '13800000002',
-          password: '123456' }
-      }).then((res) => {
+      login(this.loginForm).then((res) => {
         console.log(res.data)
       })
     //   this.$refs.loginForm.validate((valid) => {

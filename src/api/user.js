@@ -1,7 +1,13 @@
-// import request from '@/utils/request'
+import request from '@/utils/request'
 
 export function login(data) {
-
+  return request({
+    method: 'POST',
+    url: 'http://localhost:8888/api/sys/login',
+    data: {
+      mobile: '13800000002',
+      password: '123456' }
+  })
 }
 
 export function getInfo(token) {
