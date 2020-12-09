@@ -57,7 +57,7 @@
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
-      >登录</el-button>
+      >登录{{ $store.state.user.token }}</el-button>
 
       <div class="tips">
         <span style="margin-right:20px;">账号: 13800000002</span>
@@ -71,6 +71,7 @@
 import { validMobile } from '@/utils/validate'
 import { validPassword } from '@/utils/validate'
 import { login } from '@/api/user'
+
 export default {
 
   data() {
@@ -135,6 +136,7 @@ export default {
         if (success) {
           this.$message.success(message)
           console.log('token=' + data)
+          this.$store.commit('user/setToken', data)
         }
       })
     //   this.$refs.loginForm.validate((valid) => {
