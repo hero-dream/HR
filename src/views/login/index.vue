@@ -107,7 +107,7 @@ export default {
           { trigger: 'blur', validator: validataPassword }
         ]
       },
-      loading: false,
+      loading: false, // 加载中
       passwordType: 'password',
       redirect: undefined
     }
@@ -132,10 +132,15 @@ export default {
       })
     },
     handleLogin() {
+      this.loading = true // 显示加载iocn
       // dispatch派发了一个异步动作，路径惯例为前端接口（与前端代码交互，向后端发送请求
       this.$store.dispatch('user/login', this.loginForm).then(() => {
         this.$router.push('/') // 跳转主页
       }).catch(err => { console.log(err) })
+      // finally无论成功是失败都会显示
+        .finally(() => {
+          this.loading = false // 隐藏加载iocn
+        })
       // login(this.loginForm).then((res) => {
       //   console.log(res.data)
       //   const { message, success, data } = res.data

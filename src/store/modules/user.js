@@ -23,7 +23,8 @@ export default {
     // 第一个login是key值
     // 'login':function () {  }
     login(context, data) {
-      login(data).then(data => {
+      // 返回login
+      return login(data).then(data => {
         // 因为不在组件，需要单独引入
         // this.$message.success(message)
         Message.success('登录成功')
