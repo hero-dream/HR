@@ -10,7 +10,7 @@
     >
       <div class="title-container">
         <h3 class="title">
-          <img src="../../assets/common/login-logo.png" alt="">
+          <img src="@/assets/common/login-logo.png" alt="">
         </h3>
       </div>
 
@@ -77,7 +77,7 @@ export default {
   data() {
     // validataMobile为自定义  validMobile为封装引入的
     const validataMobile = (rule, value, callback) => {
-      validMobile(value) ? callback() : callback('手机号不规范')
+      validMobile(value) ? callback() : callback(new Error('手机号不规范'))
       // if (validMobile(value)) {
       //   callback()
       // } else {
@@ -89,7 +89,7 @@ export default {
       if (validPassword(value)) {
         callback()
       } else {
-        callback('密码需要大于6位数并且小于10位数')
+        callback(new Error('密码需要大于6位数并且小于10位数'))
       }
     }
     return {
