@@ -23,18 +23,14 @@ export default {
     // 第一个login是key值
     // 'login':function () {  }
     login(context, data) {
-      login(data).then(res => {
-        const { message, success, data } = res.data
-        if (success) {
-          console.log(res.data)
-          // 因为不在组件，需要单独引入
-          // this.$message.success(message)
-          Message.success(message)
-          console.log('token=' + data)
-          // this.$store.commit('user/setToken', data)
-          // 不需要写this，因为在本身操作
-          context.commit('setToken', data)
-        }
+      login(data).then(data => {
+        // 因为不在组件，需要单独引入
+        // this.$message.success(message)
+        Message.success('登录成功')
+        // console.log('token=' + data)
+        // this.$store.commit('user/setToken', data)
+        // 不需要写this，因为在本身操作
+        context.commit('setToken', data)
       })
     }
 

@@ -4,9 +4,7 @@ export function login(data) {
   return request({
     method: 'POST',
     url: '/sys/login',
-    data: {
-      mobile: '13800000002',
-      password: '123456' }
+    data: data
   })
 }
 
