@@ -21,7 +21,7 @@
         <el-input
           ref="mobile"
           v-model="loginForm.mobile"
-          placeholder="mobile"
+          placeholder="请输入手机号"
           name="mobile"
           type="text"
           tabindex="1"
@@ -38,7 +38,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="请输入密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -99,10 +99,12 @@ export default {
       },
       loginRules: {
         mobile: [
-          { required: true, trigger: 'blur', validator: validataMobile }
+          { required: true, trigger: 'blur', message: '手机号不能为空' },
+          { trigger: 'blur', validator: validataMobile }
         ],
         password: [
-          { required: true, trigger: 'blur', validator: validataPassword }
+          { required: true, trigger: 'blur', message: '密码不能为空' },
+          { trigger: 'blur', validator: validataPassword }
         ]
       },
       loading: false,
