@@ -14,6 +14,7 @@
 <script>
 import { Navbar, Sidebar, AppMain } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
+import { getUserInfo } from '../api/user'
 
 export default {
   name: 'Layout',
@@ -42,7 +43,15 @@ export default {
       }
     }
   },
+  created() {
+    getUserInfo().then(res => {
+      console.log(res)
+      console.log(1)
+    })
+  },
+
   methods: {
+
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     }
