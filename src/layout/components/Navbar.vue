@@ -1,3 +1,4 @@
+
 <template>
   <div class="navbar">
     <hamburger
@@ -15,7 +16,7 @@
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img src="../../assets/imges/timg.jpg" class="user-avatar">
-          <span class="name">管理员</span>
+          <span class="name">{{ $store.getters.name }}</span>
           <i class="el-icon-caret-bottom" style="color: #fff" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -36,7 +37,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
+// import store from '@/store'
 import Hamburger from '@/components/Hamburger'
 
 export default {
