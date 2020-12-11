@@ -14,7 +14,7 @@
 <script>
 import { Navbar, Sidebar, AppMain } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
-import { getUserInfo } from '../api/user'
+// import { getUserInfo } from '../api/user'
 
 export default {
   name: 'Layout',
@@ -44,10 +44,7 @@ export default {
     }
   },
   created() {
-    getUserInfo().then(res => {
-      console.log(res)
-      console.log(1)
-    })
+    this.$store.dispatch('user/getUserInfo')
   },
 
   methods: {

@@ -1,12 +1,13 @@
 
 import { setToken as setTokenCookies, getToken } from '@/utils/auth'
-import { login } from '@/api/user'
+import { login, getUserInfo } from '@/api/user'
 import { Message } from 'element-ui'
 
 export default {
   namespaced: true,
   state: {
-    token: getToken() // 设置初始，放入缓存中
+    token: getToken(), // 设置初始，放入缓存中
+    UserInfo: {}
   },
   mutations: {
     // 修改token的mutations
@@ -16,6 +17,10 @@ export default {
       state.token = data
       // 引入utils文件，用来存放token，不方便，但是持久化
       setTokenCookies(data)
+    },
+    // 获取用户名
+    setUserInfo(state, data) {
+      state.UserInfo = data
     }
   },
   // 封装登录请求
@@ -33,7 +38,11 @@ export default {
         // 不需要写this，因为在本身操作
         context.commit('setToken', data)
       })
+    },
+    getUserInfo(context) {
+      return getUserInfo().then(data => {
+        context.commit('setUserInfo', data)
+      })
     }
-
   }
 }
