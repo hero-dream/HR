@@ -18,8 +18,8 @@
             <el-dropdown-menu slot="dropdown">
               <!-- 下拉选项 -->
               <el-dropdown-item>添加子部门</el-dropdown-item>
-              <el-dropdown-item>编辑部门</el-dropdown-item>
-              <el-dropdown-item>删除部门</el-dropdown-item>
+              <el-dropdown-item v-if="!isRoot">编辑部门</el-dropdown-item>
+              <el-dropdown-item v-if="!isRoot">删除部门</el-dropdown-item>
 
             </el-dropdown-menu>
           </el-dropdown>
@@ -38,8 +38,15 @@ export default {
       type: Object,
       required: true
     }
-  }
+  },
+  data() {
+    return {
+      isRoot: {
+        type: Boolean
+      }
 
+    }
+  }
 }
 </script>
 
