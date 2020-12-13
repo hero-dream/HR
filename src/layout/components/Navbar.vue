@@ -10,12 +10,11 @@
       江苏传智播客教育科技股份有限公司
       <span class="breadBtn">体验版</span>
     </div>
-    <!-- <breadcrumb class="breadcrumb-container" /> //面包屑 -->
 
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img src="../../assets/imges/timg.jpg" class="user-avatar">
+          <img src="@/assets/imges/timg.jpg" class="user-avatar">
           <span class="name">{{ $store.getters.name }}</span>
           <i class="el-icon-caret-bottom" style="color: #fff" />
         </div>
