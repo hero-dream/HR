@@ -27,13 +27,12 @@
                 <el-input disabled />
               </el-form-item>
               <el-form-item label="备注">
-                <el-input disabled type="textarea" :rows="3" class="inputs" />
+                <el-input disabled type="textarea" resize="none" :rows="2" class="inputs" />
               </el-form-item>
             </el-form>
           </el-tab-pane>
         </el-tabs>
       </el-card>
-
     </div>
   </div>
 </template>
@@ -71,13 +70,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.btn{margin: 0 0 20px 0;
+.btn {
+  margin: 0 0 20px 0;
 }
-.el-input{
+.el-input {
   width: 400px;
 }
-.inputs{width: 400px;}
-.el-alert{
+.inputs {
+  width: 400px;
+  resize: none;
+}
+.el-alert {
   margin: 10px 0 20px 0;
 }
 </style>
