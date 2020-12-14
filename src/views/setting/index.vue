@@ -5,10 +5,27 @@
         <el-tabs v-model="activeName">
           <el-tab-pane label="角色管理" name="first">
             <el-button type="primary" class="btn">新增角色</el-button>
-            <el-table :data="tableData" style="width: 100%">
-              <el-table-column prop="date" label="日期" width="180" />
-              <el-table-column prop="name" label="姓名" width="180" />
-              <el-table-column prop="address" label="地址" /> </el-table></el-tab-pane>
+            <el-table :data="Rolelist" style="width: 100%">
+              <el-table-column align="center" type="index" label="序号" width="120" />
+              <el-table-column align="center" prop="name" label="名称" width="240" />
+              <el-table-column align="center" prop="description" label="描述" />
+              <el-table-column align="center" label="操作">
+                <el-button size="small" type="success">分配权限</el-button>
+                <el-button size="small" type="primary">编辑</el-button>
+                <el-button size="small" type="danger">删除</el-button>
+              </el-table-column>
+
+            </el-table>
+            <div class="block">
+
+              <el-pagination
+                :page-size="page.pagesize"
+                layout="total,prev, pager, next, jumper"
+                :total="page.total"
+                @current-change="changePage"
+              />
+            </div>
+          </el-tab-pane>
           <el-tab-pane label="公司信息">
             <el-alert
               title="对公司名称、公司地址、营业执照、公司地区的更新，将使得公司资料被重新审核，请谨慎修改"
@@ -43,34 +60,31 @@ export default {
   data() {
     return {
       activeName: 'first',
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }
-      ]
+      Rolelist: [], // 承接数组
+      page: {
+        // 放置页码及相关数据
+        page: 1,
+        pagesize: 3,
+        total: 0 // 记录总数
+      }
     }
   },
   created() {
-    getRoleList().then(res => {
-      console.log(res)
-    })
+    this.getRoleList()
+  },
+  methods: {
+    async getRoleList() {
+      const data = await getRoleList()
+      console.log(data)
+      const { rows, total } = await getRoleList(this.page) // this.page当前页面
+      this.page.total = total
+      this.Rolelist = rows
+    },
+    changePage(newPage) {
+      // newPage是当前点击的页码
+      this.page.page = newPage // 将当前页码赋值给当前的最新页码
+      this.getRoleList()
+    }
   }
 }
 </script>
