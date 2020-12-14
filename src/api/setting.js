@@ -9,3 +9,10 @@ export function getRoleList(params) {
   })
 }
 
+export function delRole(roleId) {
+  return request({
+    url: '/sys/role/' + roleId,
+    method: 'delete'
+  })
+}
+
