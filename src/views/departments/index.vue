@@ -21,6 +21,7 @@
 <script>
 import TreeTools from './components/tree-tools'
 import { getTments } from '@/api/departments'
+import { tranListToTreeData } from '@/utils/index'
 
 export default {
   components: { TreeTools },
@@ -41,7 +42,7 @@ export default {
         name: res.companyName,
         manager: '负责人'
       }
-      this.departs = res.depts
+      this.departs = tranListToTreeData(res.depts, '')
     })
   }
 
