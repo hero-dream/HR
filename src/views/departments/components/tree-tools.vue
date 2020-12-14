@@ -1,5 +1,5 @@
 <template>
-  <el-row slot-scope="{data}" type="flex" justify="space-between" align="middle" style="height: 40px; width: 100%">
+  <el-row type="flex" justify="space-between" align="middle" style="height: 40px; width: 100%">
     <el-col>
       <!-- 左侧内容 -->
       <span>{{ data.name }}</span>
