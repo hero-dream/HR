@@ -8,6 +8,22 @@
  * @param {string} cFormat
  * @returns {string | null}
  */
+
+// 递归-树形图
+export function tranListToTreeData(list, pid) {
+  const res = []
+  list.forEach(item => {
+    if (item.pid === pid) {
+      const children = tranListToTreeData(list, item.id)
+      if (children.length > 0) {
+        item.children = children
+      }
+      res.push(item)
+    }
+  })
+  return res
+}
+
 export function parseTime(time, cFormat) {
   if (arguments.length === 0 || !time) {
     return null
