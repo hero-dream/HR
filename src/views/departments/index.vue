@@ -26,20 +26,25 @@ export default {
   components: { TreeTools },
   data() {
     return {
-      departs: [{ name: '总裁办', manager: '曹操', children: [{ name: '董事会', manager: '曹丕' }] },
-        { name: '行政部', manager: '刘备' },
-        { name: '人事部', manager: '孙权' }],
+      departs: [],
       defaultProps: {
-        label: 'name' // 表示 从这个属性显示内容
+        label: 'name', // 表示 从这个属性显示内容
+        children: 'children'
       },
-      company: { name: '江苏传智播客教育科技股份有限公司', manager: '负责人' }
+      company: {}
     }
-  },
-  created() {
+  }, created() {
     getTments().then(res => {
       console.log(res)
+      // 头部
+      this.company = {
+        name: res.companyName,
+        manager: '负责人'
+      }
+      this.departs = res.depts
     })
   }
+
 }
 </script>
 
