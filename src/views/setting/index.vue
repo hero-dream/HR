@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { getRoleList } from '@/api/setting'
 export default {
   data() {
     return {
@@ -65,6 +66,11 @@ export default {
         }
       ]
     }
+  },
+  created() {
+    getRoleList().then(res => {
+      console.log(res)
+    })
   }
 }
 </script>
