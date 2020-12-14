@@ -4,6 +4,7 @@
       <el-card class="tree-card">
         <!-- 用了一个行列布局 -->
         <el-row type="flex" justify="space-between" align="middle" style="height: 40px">
+          <!-- 头部只显示添加子部门的选项 -->
           <TreeTools :data="company" :is-root="true" />
         </el-row>
         <hr>
