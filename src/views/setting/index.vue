@@ -161,6 +161,11 @@ export default {
 
     async  btnCancel() {
       this.showDialog = false
+      // 清空输入框的状态
+      this.roleForm = {
+        name: '',
+        description: ''
+      }
     }
   }
 }
