@@ -12,7 +12,7 @@
               <el-table-column align="center" label="操作">
                 <template slot-scope="scope">
                   <el-button size="small" type="success">分配权限</el-button>
-                  <el-button size="small" type="primary">编辑</el-button>
+                  <el-button size="small" type="primary" @click="editRole(scope.row.id)">编辑</el-button>
                   <el-button size="small" type="danger" @click="delRole(scope.row.id)">删除</el-button>
                 </template>
               </el-table-column>
@@ -65,7 +65,7 @@
       <!-- 底部 -->
       <el-row slot="footer" type="flex" justify="center">
         <el-col :span="6">
-          <el-button size="small">取消</el-button>
+          <el-button size="small" @click="btnCancel">取消</el-button>
           <el-button size="small" type="primary">确定</el-button>
         </el-col>
       </el-row>
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { getRoleList, delRole } from '@/api/setting'
+import { getRoleList, delRole, getRoleDetail } from '@/api/setting'
 export default {
   data() {
     return {
@@ -105,6 +105,7 @@ export default {
     this.getRoleList()
   },
   methods: {
+    // 删除
     async delRole(id) {
       try {
         await this.$confirm('确认删除该角色吗')
@@ -116,6 +117,13 @@ export default {
         console.log(error)
       }
     },
+    async editRole(id) {
+      const data = await getRoleDetail(id)
+      this.roleForm = data
+      this.showDialog = true
+    },
+
+    // 新增功能
     async addRole() {
       this.showDialog = true
     },
@@ -130,8 +138,10 @@ export default {
       // newPage是当前点击的页码
       this.page.page = newPage // 将当前页码赋值给当前的最新页码
       this.getRoleList()
+    },
+    async  btnCancel() {
+      this.showDialog = false
     }
-
   }
 }
 </script>
