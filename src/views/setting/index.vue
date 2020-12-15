@@ -173,6 +173,7 @@ export default {
         name: '',
         description: ''
       }
+      this.$refs.roleForm.resetFields()
     }
   }
 }
