@@ -37,16 +37,16 @@
             />
             <el-form label-width="80px">
               <el-form-item label="公司名称">
-                <el-input disabled />
+                <el-input v-model="companyFrom.name" disabled />
               </el-form-item>
               <el-form-item label="公司地址">
-                <el-input disabled />
+                <el-input v-model="companyFrom.companyAddress" disabled />
               </el-form-item>
               <el-form-item label="邮箱">
-                <el-input disabled />
+                <el-input v-model="companyFrom.mailbox" disabled />
               </el-form-item>
               <el-form-item label="备注">
-                <el-input disabled type="textarea" resize="none" :rows="2" class="inputs" />
+                <el-input v-model="companyFrom.remarks" disabled type="textarea" resize="none" :rows="1" class="inputs" />
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -100,7 +100,9 @@ export default {
       roleForm: {
         name: '',
         description: ''
-      }
+      },
+      // 将公司信息存放
+      companyFrom: {}
     }
   },
   computed: {
@@ -145,6 +147,7 @@ export default {
       // console.log(this.companyId)
       // 当前页面刷新，数据还没有回来，所以id为undefined
         const data = await getCompanyInfo(this.companyId)
+        this.companyFrom = data
         console.log(data)
       } catch (error) {
         console.log(error)
