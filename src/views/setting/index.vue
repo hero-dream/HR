@@ -53,7 +53,7 @@
         </el-tabs>
       </el-card>
     </div>
-    <el-dialog title="编辑弹层" :visible="showDialog">
+    <el-dialog title="编辑弹层" :visible="showDialog" @close="btnCancel">
       <el-form ref="roleForm" :model="roleForm" :rules="rules" label-width="120px">
         <el-form-item label="角色名称" prop="name">
           <el-input v-model="roleForm.name" />
