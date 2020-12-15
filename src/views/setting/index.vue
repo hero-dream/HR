@@ -128,6 +128,7 @@ export default {
         const isValid = await this.$refs.roleForm.validate()
         if (isValid) {
           await updateRole(this.roleForm)
+          this.getRoleList() // 重新加载数据
           this.$message.success('修改成功')
           this.showDialog = false
         }
