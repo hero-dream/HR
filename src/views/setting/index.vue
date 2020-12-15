@@ -74,7 +74,9 @@
 </template>
 
 <script>
-import { getRoleList, delRole, getRoleDetail, updateRole, addRole } from '@/api/setting'
+import { mapGetters } from 'vuex'
+import { getRoleList, delRole, getRoleDetail, updateRole, addRole, getCompanyInfo } from '@/api/setting'
+
 export default {
   data() {
     return {
@@ -102,13 +104,52 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['companyId']), // 解构
     titleLIst() {
       return this.roleForm.id ? '编辑角色' : '新增角色'
     } },
+  // 监听
+  watch: {
+  // 数据发送变化时才会触发
+  // 1.别的页面进来id不变
+  // 2.当前页面刷新，id从无到有
+  // immediate 立即
+    companyId: {
+      handler() {
+        // companyId存在就调用
+        if (this.companyId) {
+          this.getCompanyInfo() // 公司信息
+          console.log('请求公司数据')
+        }
+      },
+      immediate: true
+    }
+
+  },
   created() {
     this.getRoleList() // 获取数据
+    // this.getCompanyInfo() // 公司信息
   },
   methods: {
+    async getRoleList() {
+      const data = await getRoleList()
+      console.log(data)
+      const { rows, total } = await getRoleList(this.page) // this.page当前页面
+      this.page.total = total
+      this.Rolelist = rows
+    },
+    // 公司信息
+    async getCompanyInfo() {
+      try {
+      // console.log(this.$store.getters.companyId) // 打印公司id
+      // console.log(this.companyId)
+      // 当前页面刷新，数据还没有回来，所以id为undefined
+        const data = await getCompanyInfo(this.companyId)
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     // 删除
     async delRole(id) {
       try {
@@ -153,13 +194,7 @@ export default {
     async addRole() {
       this.showDialog = true
     },
-    async getRoleList() {
-      const data = await getRoleList()
-      console.log(data)
-      const { rows, total } = await getRoleList(this.page) // this.page当前页面
-      this.page.total = total
-      this.Rolelist = rows
-    },
+
     changePage(newPage) {
       // newPage是当前点击的页码
       this.page.page = newPage // 将当前页码赋值给当前的最新页码
