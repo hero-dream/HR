@@ -54,12 +54,12 @@
       </el-card>
     </div>
     <el-dialog title="编辑弹层" :visible="showDialog">
-      <el-form label-width="120px">
+      <el-form ref="roleForm" :model="roleForm" :rules="rules" label-width="120px">
         <el-form-item label="角色名称" prop="name">
-          <el-input />
+          <el-input v-model="roleForm.name" />
         </el-form-item>
-        <el-form-item label="角色描述">
-          <el-input />
+        <el-form-item label="角色描述" prop="description">
+          <el-input v-model="roleForm.description" />
         </el-form-item>
       </el-form>
       <!-- 底部 -->
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { getRoleList, delRole} from '@/api/setting'
+import { getRoleList, delRole } from '@/api/setting'
 export default {
   data() {
     return {
@@ -86,6 +86,18 @@ export default {
         page: 1,
         pagesize: 3,
         total: 0 // 记录总数
+      },
+      rules: {
+        name: [{ required: true, message: '角色名称不能为空', trigger: 'blur' },
+          { min: 2, max: 10, message: '角色名称在2到10位' }],
+        description: [{
+          required: true, message: '角色描述不能为空', trigger: 'blur' },
+        { min: 10, max: 50, message: '角色描述在10到50位'
+        }]
+      },
+      roleForm: {
+        name: '',
+        description: ''
       }
     }
   },
