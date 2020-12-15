@@ -66,7 +66,7 @@
       <el-row slot="footer" type="flex" justify="center">
         <el-col :span="6">
           <el-button size="small" @click="btnCancel">取消</el-button>
-          <el-button size="small" type="primary">确定</el-button>
+          <el-button size="small" type="primary" @click="btnOk">确定</el-button>
         </el-col>
       </el-row>
     </el-dialog>
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { getRoleList, delRole, getRoleDetail } from '@/api/setting'
+import { getRoleList, delRole, getRoleDetail, updateRole } from '@/api/setting'
 export default {
   data() {
     return {
@@ -122,7 +122,19 @@ export default {
       this.roleForm = data
       this.showDialog = true
     },
-
+    // 修改角色
+    async btnOk() {
+      try {
+        const isValid = await this.$refs.roleForm.validate()
+        if (isValid) {
+          await updateRole(this.roleForm)
+          this.$message.success('修改成功')
+          this.showDialog = false
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
     // 新增功能
     async addRole() {
       this.showDialog = true
@@ -139,6 +151,7 @@ export default {
       this.page.page = newPage // 将当前页码赋值给当前的最新页码
       this.getRoleList()
     },
+
     async  btnCancel() {
       this.showDialog = false
     }
