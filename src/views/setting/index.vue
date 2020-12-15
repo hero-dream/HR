@@ -53,7 +53,7 @@
         </el-tabs>
       </el-card>
     </div>
-    <el-dialog title="编辑弹层" :visible="showDialog" @close="btnCancel">
+    <el-dialog :title="titleLIst" :visible="showDialog" @close="btnCancel">
       <el-form ref="roleForm" :model="roleForm" :rules="rules" label-width="120px">
         <el-form-item label="角色名称" prop="name">
           <el-input v-model="roleForm.name" />
@@ -101,8 +101,12 @@ export default {
       }
     }
   },
+  computed: {
+    titleLIst() {
+      return this.roleForm.id ? '编辑角色' : '新增角色'
+    } },
   created() {
-    this.getRoleList()
+    this.getRoleList() // 获取数据
   },
   methods: {
     // 删除
