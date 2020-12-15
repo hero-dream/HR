@@ -92,7 +92,7 @@ export default {
           { min: 2, max: 10, message: '角色名称在2到10位' }],
         description: [{
           required: true, message: '角色描述不能为空', trigger: 'blur' },
-        { min: 10, max: 50, message: '角色描述在10到50位'
+        { min: 5, max: 50, message: '角色描述在10到50位'
         }]
       },
       roleForm: {
