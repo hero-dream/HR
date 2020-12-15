@@ -4,7 +4,7 @@
       <el-card>
         <el-tabs v-model="activeName">
           <el-tab-pane label="角色管理" name="first">
-            <el-button type="primary" class="btn">新增角色</el-button>
+            <el-button type="primary" class="btn" @click="addRole">新增角色</el-button>
             <el-table :data="Rolelist" style="width: 100%">
               <el-table-column align="center" type="index" label="序号" width="120" />
               <el-table-column align="center" prop="name" label="名称" width="240" />
@@ -53,14 +53,32 @@
         </el-tabs>
       </el-card>
     </div>
+    <el-dialog title="编辑弹层" :visible="showDialog">
+      <el-form label-width="120px">
+        <el-form-item label="角色名称" prop="name">
+          <el-input />
+        </el-form-item>
+        <el-form-item label="角色描述">
+          <el-input />
+        </el-form-item>
+      </el-form>
+      <!-- 底部 -->
+      <el-row slot="footer" type="flex" justify="center">
+        <el-col :span="6">
+          <el-button size="small">取消</el-button>
+          <el-button size="small" type="primary">确定</el-button>
+        </el-col>
+      </el-row>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getRoleList, delRole } from '@/api/setting'
+import { getRoleList, delRole} from '@/api/setting'
 export default {
   data() {
     return {
+      showDialog: false,
       activeName: 'first',
       Rolelist: [], // 承接数组
       page: {
@@ -86,7 +104,9 @@ export default {
         console.log(error)
       }
     },
-
+    async addRole() {
+      this.showDialog = true
+    },
     async getRoleList() {
       const data = await getRoleList()
       console.log(data)
