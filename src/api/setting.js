@@ -45,7 +45,7 @@ export function getRoleDetail(id) {
 // 公司信息
 export function getCompanyInfo(companyId) {
   return request({
-    url: `/sys/role/${companyId}`
+    url: `/company/${companyId}`
   })
 }
 
