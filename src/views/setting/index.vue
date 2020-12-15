@@ -131,10 +131,13 @@ export default {
       try {
         const isValid = await this.$refs.roleForm.validate()
         if (isValid) {
+          // 根据Id来判断是新增还是编辑
           if (this.roleForm.id) {
+            // 编辑
             await updateRole(this.roleForm)
             this.$message.success('修改成功')
           } else {
+            // 新增判断
             await addRole(this.roleForm)
             this.$message.success('新增成功')
           }
