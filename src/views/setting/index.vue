@@ -147,9 +147,10 @@ export default {
       // console.log(this.companyId)
       // 当前页面刷新，数据还没有回来，所以id为undefined
         const data = await getCompanyInfo(this.companyId)
+
+        console.log(data)
         // 将公司信息存放
         this.companyFrom = data
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -198,7 +199,7 @@ export default {
     async addRole() {
       this.showDialog = true
     },
-
+    // 页码
     changePage(newPage) {
       // newPage是当前点击的页码
       this.page.page = newPage // 将当前页码赋值给当前的最新页码
@@ -219,6 +220,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .btn {
   margin: 0 0 20px 0;
 }
@@ -232,4 +234,5 @@ export default {
 .el-alert {
   margin: 10px 0 20px 0;
 }
+
 </style>
