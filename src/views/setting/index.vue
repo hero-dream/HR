@@ -19,7 +19,6 @@
 
             </el-table>
             <div class="block">
-
               <el-pagination
                 :page-size="page.pagesize"
                 layout="total,prev, pager, next, jumper"
@@ -63,6 +62,7 @@
         </el-form-item>
       </el-form>
       <!-- 底部 -->
+
       <el-row slot="footer" type="flex" justify="center">
         <el-col :span="6">
           <el-button size="small" @click="btnCancel">取消</el-button>
@@ -235,4 +235,8 @@ export default {
   margin: 10px 0 20px 0;
 }
 
+::v-deep .el-tabs__item {
+  font-weight: 700;
+  font-size: 18px;
+}
 </style>
