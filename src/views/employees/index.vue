@@ -4,9 +4,10 @@
       <PageTools>
         <span slot="before" />
         <span slot="after">
+          <el-button type="primary">新增员工</el-button>
           <el-button type="success">导入</el-button>
           <el-button type="info">导出</el-button>
-          <el-button type="primary">历史记录</el-button>
+
         </span>
       </PageTools>
       <!-- 放置表格和分页 -->
@@ -21,13 +22,14 @@
           <el-table-column align="center" prop="timeOfEntry" label="入职时间" sortable="" />
           <el-table-column align="center" prop="enableState" label="账户状态" sortable="" />
           <el-table-column align="center" label="操作" sortable="" fixed="right" width="280">
-            <template>
+            <template slot-scope="scope">
               <el-button type="text" size="small">查看</el-button>
               <el-button type="text" size="small">转正</el-button>
               <el-button type="text" size="small">调岗</el-button>
               <el-button type="text" size="small">离职</el-button>
               <el-button type="text" size="small">角色</el-button>
-              <el-button type="text" size="small">删除</el-button>
+
+              <el-button type="text" size="small" @click="delEmployee(scope.row.id)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -47,7 +49,7 @@
 
 <script>
 
-import { getEmployeeList } from '@/api/employees'
+import { getEmployeeList, delEmployee } from '@/api/employees'
 
 export default {
   data() {
@@ -75,6 +77,16 @@ export default {
     changePage(newPage) {
       this.page.page = newPage
       this.getEmployeeList() // 重新获取员工列表
+    },
+    async delEmployee(id) {
+      try {
+        const data = await delEmployee(id)
+        console.log(data)
+        this.getEmployeeList() // 获取员工列表
+        this.$message.success('删除员工成功')
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
