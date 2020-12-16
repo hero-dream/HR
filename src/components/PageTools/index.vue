@@ -26,5 +26,5 @@ export default {
 </script>
 
 <style>
-
+.page-tools{margin: 0  0 10px 0;}
 </style>
