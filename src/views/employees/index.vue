@@ -19,9 +19,9 @@
           <!-- <el-table-column align="center" type="index" label="序号" sortable="" /> -->
           <el-table-column align="center" prop="username" label="姓名" sortable="" />
           <el-table-column align="center" prop="workNumber" label="工号" sortable="" />
-          <el-table-column align="center" prop="formOfEmployment" label="聘用形式" sortable="" :formatter="formatter" />
+          <el-table-column align="center" prop="formOfEmployment" label="聘用形式" sortable="" :formatter="formOfEmployment" />
           <el-table-column align="center" prop="departmentName" label="部门" sortable="" />
-          <el-table-column align="center" prop="timeOfEntry" label="入职时间" sortable="" />
+          <el-table-column align="center" prop="timeOfEntry" label="入职时间" :formatter="formOftimeOfEntry" sortable="" />
           <el-table-column align="center" prop="enableState" label="账户状态" sortable="" />
           <el-table-column align="center" label="操作" sortable="" fixed="right" width="280">
             <template slot-scope="scope">
@@ -91,9 +91,15 @@ export default {
         console.log(error)
       }
     },
-    formatter(row, column, cellValue, index) {
+    // 聘用形式
+    formOfEmployment(row, column, cellValue, index) {
       const obj = Employees.hireType.find(item => item.id === cellValue)
       return obj ? obj.value : '未知'
+    },
+    // 时间
+    formOftimeOfEntry(row, column, cellValue, index) {
+      // console.log(cellValue.split('T'))
+      return cellValue.split('T')[0]
     }
   }
 }
