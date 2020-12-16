@@ -13,11 +13,13 @@
       <!-- 放置表格和分页 -->
       <el-card>
         <el-table border :data="userList">
-
-          <el-table-column align="center" label="序号" type="index" width="70" sortable />
+          <el-table-column align="center" label="序号" width="70">
+            <template slot-scope="{ $index }">{{ (page.page-1) *page.size +1 +$index }}</template>
+          </el-table-column>
+          <!-- <el-table-column align="center" type="index" label="序号" sortable="" /> -->
           <el-table-column align="center" prop="username" label="姓名" sortable="" />
           <el-table-column align="center" prop="workNumber" label="工号" sortable="" />
-          <el-table-column align="center" prop="formOfEmployment" label="聘用形式" sortable="" />
+          <el-table-column align="center" prop="formOfEmployment" label="聘用形式" sortable="" :formatter="formatter" />
           <el-table-column align="center" prop="departmentName" label="部门" sortable="" />
           <el-table-column align="center" prop="timeOfEntry" label="入职时间" sortable="" />
           <el-table-column align="center" prop="enableState" label="账户状态" sortable="" />
@@ -50,6 +52,7 @@
 <script>
 
 import { getEmployeeList, delEmployee } from '@/api/employees'
+// import Employees from '@/api/constant/employees'
 
 export default {
   data() {
@@ -88,6 +91,10 @@ export default {
         console.log(error)
       }
     }
+    // formatter(row, column, cellValue, index) {
+    //   const obj = Employees.hireType.find(item => item.id === cellValue)
+    //   return obj ? obj.value : '未知'
+    // }
   }
 }
 </script>
