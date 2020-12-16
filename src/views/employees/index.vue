@@ -8,7 +8,7 @@
           <el-button type="info">导出</el-button>
           <el-button type="primary">历史记录</el-button>
         </span>
-        </span></PageTools>
+      </PageTools>
       <!-- 放置表格和分页 -->
       <el-card>
         <el-table border :data="tableData">
