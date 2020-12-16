@@ -52,7 +52,7 @@
 <script>
 
 import { getEmployeeList, delEmployee } from '@/api/employees'
-// import Employees from '@/api/constant/employees'
+import Employees from '@/api/constant/employees'
 
 export default {
   data() {
@@ -90,11 +90,11 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    formatter(row, column, cellValue, index) {
+      const obj = Employees.hireType.find(item => item.id === cellValue)
+      return obj ? obj.value : '未知'
     }
-    // formatter(row, column, cellValue, index) {
-    //   const obj = Employees.hireType.find(item => item.id === cellValue)
-    //   return obj ? obj.value : '未知'
-    // }
   }
 }
 </script>
