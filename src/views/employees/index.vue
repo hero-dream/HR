@@ -22,7 +22,14 @@
           <el-table-column align="center" prop="formOfEmployment" label="聘用形式" sortable="" :formatter="formOfEmployment" />
           <el-table-column align="center" prop="departmentName" label="部门" sortable="" />
           <el-table-column align="center" prop="timeOfEntry" label="入职时间" :formatter="formOftimeOfEntry" sortable="" />
-          <el-table-column align="center" prop="enableState" label="账户状态" sortable="" />
+          <el-table-column align="center" label="账户状态" sortable="">
+
+            <template slot-scope="{row}">
+              <el-switch :value="row.enableState === 1" />
+            </template>
+
+          </el-table-column>
+
           <el-table-column align="center" label="操作" sortable="" fixed="right" width="280">
             <template slot-scope="scope">
               <el-button type="text" size="small">查看</el-button>
