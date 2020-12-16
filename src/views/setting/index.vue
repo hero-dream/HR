@@ -147,6 +147,7 @@ export default {
       // console.log(this.companyId)
       // 当前页面刷新，数据还没有回来，所以id为undefined
         const data = await getCompanyInfo(this.companyId)
+        // 将公司信息存放
         this.companyFrom = data
         console.log(data)
       } catch (error) {
