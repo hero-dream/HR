@@ -11,14 +11,15 @@
       </PageTools>
       <!-- 放置表格和分页 -->
       <el-card>
-        <el-table border :data="tableData">
-          <el-table-column align="center" label="序号" type="index" sortable />
-          <el-table-column align="center" label="姓名" sortable="" prop="name" />
-          <el-table-column align="center" label="工号" sortable="" />
-          <el-table-column align="center" label="聘用形式" sortable="" />
-          <el-table-column align="center" label="部门" sortable="" />
-          <el-table-column align="center" label="入职时间" prop="date" sortable="" />
-          <el-table-column align="center" label="账户状态" sortable="" />
+        <el-table border :data="userList">
+
+          <el-table-column align="center" label="序号" type="index" width="70" sortable />
+          <el-table-column align="center" prop="username" label="姓名" sortable="" />
+          <el-table-column align="center" prop="workNumber" label="工号" sortable="" />
+          <el-table-column align="center" prop="formOfEmployment" label="聘用形式" sortable="" />
+          <el-table-column align="center" prop="departmentName" label="部门" sortable="" />
+          <el-table-column align="center" prop="timeOfEntry" label="入职时间" sortable="" />
+          <el-table-column align="center" prop="enableState" label="账户状态" sortable="" />
           <el-table-column align="center" label="操作" sortable="" fixed="right" width="280">
             <template>
               <el-button type="text" size="small">查看</el-button>
@@ -33,8 +34,10 @@
         <!-- 分页组件 -->
         <div class="block">
           <el-pagination
-
+            :page-size="page.size"
+            :total="page.total"
             layout="total,prev, pager, next, jumper"
+            @current-change="changePage"
           />
         </div>
       </el-card>
@@ -43,35 +46,40 @@
 </template>
 
 <script>
+
+import { getEmployeeList } from '@/api/employees'
+
 export default {
   data() {
     return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-04',
-          name: '陈小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '成小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '鲁小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }
-      ]
+      userList: [], // 接收数据
+      page: {
+        page: 1,
+        size: 7,
+        total: 0
+      }
+    }
+  },
+  created() {
+    this.getEmployeeList() // 获取员工列表
+  },
+  methods: {
+
+    async getEmployeeList() {
+      const data = await getEmployeeList(this.page)
+      const { rows, total } = await getEmployeeList(this.page)
+      console.log(data)
+      this.page.total = total
+      this.userList = rows
+    },
+    changePage(newPage) {
+      this.page.page = newPage
+      this.getEmployeeList() // 重新获取员工列表
     }
   }
 }
 </script>
 
 <style>
+.block{margin: 10px 0 0 0;}
 </style>
