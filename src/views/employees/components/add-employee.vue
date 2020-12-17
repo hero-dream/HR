@@ -1,6 +1,6 @@
 <template>
-  <el-dialog title="新增员工" :visible="showDialog" :rules="rules" :model="employeeData">
-    <el-form label-width="160px">
+  <el-dialog title="新增员工" :visible="showDialog">
+    <el-form label-width="160px" :rules="rules" :model="employeeData">
       <el-form-item label="姓名" prop="username">
         <el-input v-model="employeeData.username" style="width:70%" placeholder="请输入姓名" />
       </el-form-item>
@@ -27,7 +27,7 @@
     <!-- 底部 -->
     <el-row slot="footer" type="flex" justify="center">
       <el-col :span="6">
-        <el-button size="small">取消</el-button>
+        <el-button size="small" @click="btnCancel">取消</el-button>
         <el-button size="small" type="primary">确定</el-button>
       </el-col>
     </el-row>
@@ -55,11 +55,15 @@ export default {
       },
       rules: {
         username: [{ required: true, message: '用户姓名不能为空', trigger: 'blur' }, {
-          min: 1, max: 4, message: '用户姓名为1-4位'
+          min: 2, max: 4, message: '用户姓名为1-4位', trigger: 'blur'
         }],
         mobile: [{ required: true, message: '手机号不能为空', trigger: 'blur' },
           { pattern: '/^1[3-9]\d{9}$/', message: '手机号需要规范', trigger: 'blur' }]
       }
+    }
+  },
+  methods: {
+    btnCancel() {
     }
   }
 
