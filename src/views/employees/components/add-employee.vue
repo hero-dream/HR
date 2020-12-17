@@ -1,6 +1,6 @@
 <template>
-  <el-dialog title="新增员工" :visible="showDialog">
-    <el-form label-width="160px" :rules="rules" :model="employeeData">
+  <el-dialog title="新增员工" :visible="showDialog" @close="btnCancel">
+    <el-form ref="form" label-width="160px" :rules="rules" :model="employeeData">
       <el-form-item label="姓名" prop="username">
         <el-input v-model="employeeData.username" style="width:70%" placeholder="请输入姓名" />
       </el-form-item>
@@ -35,7 +35,7 @@
     <!-- 底部 -->
     <el-row slot="footer" type="flex" justify="center">
       <el-col :span="6">
-        <el-button size="small">取消</el-button>
+        <el-button size="small" @click="btnCancel">取消</el-button>
         <el-button size="small" type="primary" @click="btnOK">确定</el-button>
       </el-col>
     </el-row>
@@ -101,15 +101,28 @@ export default {
     },
     async btnOK() {
       try {
-        const data = await addEmployee(this.employeeData)
-        console.log(data)
+        await addEmployee(this.employeeData)
         // 利用父子传置，关闭窗口
         this.$emit('update:showDialog', false)
         // 刷新数据
         this.$emit('addEmployee')
+        // 清空窗口数据
+        this.employeeData = {}
+
+        this.$refs.form.resetFields()
       } catch (error) {
         console.log(error)
       }
+    },
+    btnCancel() {
+      try {
+        this.employeeData = {
+
+        }
+        // 利用父子传置，关闭窗口
+        this.$emit('update:showDialog', false)
+        this.$refs.form.resetFields() // 重置校验结果
+      } catch (error) { console.log(error) }
     }
   }
 
