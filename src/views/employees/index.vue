@@ -53,7 +53,7 @@
           />
         </div>
         <!-- 组件 -->
-        <Addemployee :show-dialog="showDialog" />
+        <Addemployee :show-dialog.sync="showDialog" :add-employee="getEmployeeList" />
       </el-card>
     </div>
   </div>

@@ -36,7 +36,7 @@
     <el-row slot="footer" type="flex" justify="center">
       <el-col :span="6">
         <el-button size="small">取消</el-button>
-        <el-button size="small" type="primary">确定</el-button>
+        <el-button size="small" type="primary" @click="btnOK">确定</el-button>
       </el-col>
     </el-row>
   </el-dialog>
@@ -46,6 +46,7 @@
 import { getTments } from '@/api/departments' // 公司信息
 import Employees from '@/api/constant/employees'
 import { tranListToTreeData } from '@/utils/index'
+import { addEmployee } from '@/api/employees'
 export default {
   props: {
     showDialog: {
@@ -97,6 +98,18 @@ export default {
       console.log(data)
       this.employeeData.departmentName = data.name
       this.treeData = []
+    },
+    async btnOK() {
+      try {
+        const data = await addEmployee(this.employeeData)
+        console.log(data)
+        // 利用父子传置，关闭窗口
+        this.$emit('update:showDialog', false)
+        // 刷新数据
+        this.$emit('addEmployee')
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
