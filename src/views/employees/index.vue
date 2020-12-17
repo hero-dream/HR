@@ -4,7 +4,7 @@
       <PageTools>
         <span slot="before" />
         <span slot="after">
-          <el-button type="primary">新增员工</el-button>
+          <el-button type="primary" @click="showDialog=true">新增员工</el-button>
           <el-button type="success">导入</el-button>
           <el-button type="info">导出</el-button>
 
@@ -18,6 +18,7 @@
           </el-table-column>
           <!-- <el-table-column align="center" type="index" label="序号" sortable="" /> -->
           <el-table-column align="center" prop="username" label="姓名" sortable="" />
+          <el-table-column align="center" prop="mobile" label="手机号" sortable="" />
           <el-table-column align="center" prop="workNumber" label="工号" sortable="" />
           <el-table-column align="center" prop="formOfEmployment" label="聘用形式" sortable="" :formatter="formOfEmployment" />
           <el-table-column align="center" prop="departmentName" label="部门" sortable="" />
@@ -51,23 +52,27 @@
             @current-change="changePage"
           />
         </div>
+        <!-- 组件 -->
+        <Addemployee :show-dialog="showDialog" />
       </el-card>
     </div>
   </div>
 </template>
 
 <script>
-
+import Addemployee from '@/views/employees/components/add-employee'
 import { getEmployeeList, delEmployee } from '@/api/employees'
 import Employees from '@/api/constant/employees'
 
 export default {
+  components: { Addemployee },
   data() {
     return {
+      showDialog: false,
       userList: [], // 接收数据
       page: {
         page: 1,
-        size: 7,
+        size: 9,
         total: 0
       }
     }
@@ -92,6 +97,7 @@ export default {
       try {
         const data = await delEmployee(id)
         console.log(data)
+        await this.$confirm('您确定删除该员工吗')
         this.getEmployeeList() // 获取员工列表
         this.$message.success('删除员工成功')
       } catch (error) {
@@ -108,6 +114,7 @@ export default {
       // console.log(cellValue.split('T'))
       return cellValue.split('T')[0]
     }
+
   }
 }
 </script>
