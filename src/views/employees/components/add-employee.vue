@@ -11,7 +11,13 @@
         <el-date-picker v-model="employeeData.timeOfEntry" style="width:70%" placeholder="请选择日期" />
       </el-form-item>
       <el-form-item label="聘用形式" prop="formOfEmployment">
-        <el-select v-model="employeeData.formOfEmployment" style="width:70%" placeholder="请选择" />
+        <el-select v-model="employeeData.formOfEmployment" style="width:70%" placeholder="请选择">
+          <el-option
+            v-for="item in Employees.hireType"
+            :key="item.id"
+            :value="item.id"
+            :label="item.value"
+          />   </el-select>
       </el-form-item>
       <el-form-item label="工号" prop="workNumber">
         <el-input v-model="employeeData.workNumber" style="width:70%" placeholder="请输入工号" />
@@ -35,6 +41,7 @@
 </template>
 
 <script>
+import Employees from '@/api/constant/employees'
 export default {
   props: {
     showDialog: {
@@ -44,6 +51,7 @@ export default {
   },
   data() {
     return {
+      Employees, // 枚举数据
       employeeData: {
         username: '',
         mobile: '',
