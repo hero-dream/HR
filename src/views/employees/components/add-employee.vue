@@ -54,11 +54,22 @@ export default {
         correctionTime: ''
       },
       rules: {
-        username: [{ required: true, message: '用户姓名不能为空', trigger: 'blur' }, {
-          min: 2, max: 4, message: '用户姓名为1-4位', trigger: 'blur'
-        }],
+        username: [{ required: true, message: '用户姓名不能为空', trigger: 'blur' },
+          { min: 2, max: 4, message: '用户姓名为1-4位', trigger: 'blur' }],
+
         mobile: [{ required: true, message: '手机号不能为空', trigger: 'blur' },
-          { pattern: '/^1[3-9]\d{9}$/', message: '手机号需要规范', trigger: 'blur' }]
+          { pattern: /^1[3-9]\d{9}$/, message: '手机号需要规范', trigger: 'blur' }],
+
+        timeOfEntry: [{ required: true, message: '入职时间不能为空', trigger: 'blur' }],
+
+        departmentName: [{ required: true, message: '部门不能为空', trigger: 'change' }],
+
+        formOfEmployment: [{ required: true, message: '聘用形式不能为空', trigger: 'blur' }],
+
+        workNumber: [{ required: true, message: '工号不能为空', trigger: 'blur' }, {
+          pattern: /^\d{4}$/, message: '工号为4位数', trigger: 'blur'
+        }],
+        correctionTime: [{ required: true, message: '转正时间不能为空', trigger: 'blur' }]
       }
     }
   },
