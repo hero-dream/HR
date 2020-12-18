@@ -15,6 +15,7 @@ import attendancesRouter from './module/attendances'
 import salarysRouter from './module/salarys'
 import settingRouter from './module/setting'
 import socialRouter from './module/social'
+
 // 静态路由
 export const constantRoutes = [
 
@@ -41,7 +42,19 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
-
+  // 文件上传
+  {
+    path: '/imoort',
+    component: Layout,
+    redirect: '/imoort',
+    hidden: true,
+    children: [{
+      path: '',
+      name: 'imoort',
+      component: () => import('../views/imoort'),
+      meta: { title: '文件上传', icon: 'dashboard' }
+    }]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
@@ -55,6 +68,7 @@ export const asyncRoutes = [
   salarysRouter,
   settingRouter,
   socialRouter
+
 ]
 
 const createRouter = () => new Router({
