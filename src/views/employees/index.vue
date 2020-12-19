@@ -5,7 +5,7 @@
         <span slot="before" />
         <span slot="after">
           <el-button type="primary" @click="showDialog=true">新增员工</el-button>
-          <el-button type="success">导入</el-button>
+          <el-button type="success" @click="imoort">导入</el-button>
           <el-button type="info">导出</el-button>
 
         </span>
@@ -113,8 +113,10 @@ export default {
     formOftimeOfEntry(row, column, cellValue, index) {
       // console.log(cellValue.split('T'))
       return cellValue.split('T')[0]
+    },
+    imoort() {
+      this.$router.push('imoort')
     }
-
   }
 }
 </script>
