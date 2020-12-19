@@ -6,12 +6,12 @@
           <el-tab-pane label="登录账户设置">
 
             <!-- 放置表单 -->
-            <el-form label-width="120px" :model="formData" style="margin-left: 120px;  margin-top:30px">
+            <el-form ref="userForm" label-width="120px" :rules="rules" :model="formData" style="margin-left: 120px;  margin-top:30px">
               <el-form-item label="姓名:" prop="username">
                 <el-input v-model="formData.username" style="width:300px" />
               </el-form-item>
-              <el-form-item label="密码:" prop="newPassword">
-                <el-input v-model="formData.newPassword" style="width:300px" type="password" />
+              <el-form-item label="新密码:" prop="newPassword">
+                <el-input v-model="formData.newPassword" placeholder="请输入新密码" style="width:300px" type="password" />
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="saveUser">更新</el-button>
@@ -39,10 +39,17 @@ import { saveUserDetailById } from '@/api/employees'
 export default {
   data() {
     return {
+
       userId: this.$route.params.id, // 这样可以后面直接通过 this.userId进行获取数据
       formData: {
         username: '',
         newPassword: ''
+      },
+      rules: {
+        username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
+
+        newPassword: [{ required: true, message: '密码不能为空', trigger: 'blur' },
+          { min: 6, max: 9, message: '密码长度6-9位', trigger: 'blur' }]
       }
     }
   },
@@ -54,9 +61,12 @@ export default {
       console.log(data)
     },
     async saveUser() {
-      const res = await saveUserDetailById({ ...this.formData, password: this.formData.newPassword })
-      console.log(res)
-      this.$message.success('保存成功')
+      try {
+        await this.$refs.userForm.validate()
+        await saveUserDetailById({ ...this.formData, password: this.formData.newPassword })
+        this.$router.back()
+        this.$message.success('保存成功')
+      } catch (error) { console.log(error) }
     }
   }
 }
