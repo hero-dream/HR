@@ -14,6 +14,13 @@ export function getUserInfo(token) {
     url: '/sys/profile'
   })
 }
+
+//  获取某个用户的基本信息
+export function getUserDetailById(id) {
+  return request({
+    url: `/sys/user/${id}`
+  })
+}
 //
 export function logout() {
 
