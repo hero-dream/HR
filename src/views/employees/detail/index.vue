@@ -14,7 +14,7 @@
                 <el-input v-model="formData.newPassword" style="width:300px" type="password" />
               </el-form-item>
               <el-form-item>
-                <el-button type="primary">更新</el-button>
+                <el-button type="primary" @click="saveUser">更新</el-button>
                 <el-button>取消</el-button>
               </el-form-item>
             </el-form>
@@ -35,7 +35,7 @@
 
 <script>
 import { getUserDetailById } from '@/api/user'
-// import { saveUserDetailById } from '@/api/employees'
+import { saveUserDetailById } from '@/api/employees'
 export default {
   data() {
     return {
@@ -52,6 +52,11 @@ export default {
       const data = await getUserDetailById(this.userId)
       this.formData = await getUserDetailById(this.userId)
       console.log(data)
+    },
+    async saveUser() {
+      const res = await saveUserDetailById({ ...this.formData, password: this.formData.newPassword })
+      console.log(res)
+      this.$message.success('保存成功')
     }
   }
 }
