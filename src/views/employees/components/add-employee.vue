@@ -101,6 +101,7 @@ export default {
     },
     async btnOK() {
       try {
+        await this.$refs.form.validate()
         await addEmployee(this.employeeData)
         // 利用父子传置，关闭窗口
         this.$emit('update:showDialog', false)
