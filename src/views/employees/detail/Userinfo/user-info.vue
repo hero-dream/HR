@@ -358,8 +358,8 @@ export default {
     }
   },
   created() {
-    this.getPersonalDetail()
-    this.getUserDetailById()
+    this.getPersonalDetail() // 读取用户详情的基础信息
+    this.getUserDetailById() // 获取员工id
   },
   methods: {
     async getPersonalDetail() {
