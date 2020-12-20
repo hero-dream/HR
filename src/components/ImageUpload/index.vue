@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-upload
+      class="uploader"
       action="#"
       :on-preview="preview"
       list-type="picture-card"
@@ -56,8 +57,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .disabled .el-upload--picture-card{
   display: none;
 }
+.uploader {
+::v-deep img{
+  object-fit: cover
+}}
 </style>
+
