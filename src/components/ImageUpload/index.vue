@@ -4,6 +4,7 @@
     action="#"
     list-type="picture-card"
     :class="{disabled: fileComputed }"
+    :http-request="customUpload"
     :on-change="changeFile"
     :on-remove="handleRemove"
     :file-list="fileList"
@@ -18,8 +19,7 @@ export default {
   data() {
     return {
       fileList: [
-        {
-          url: 'https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/022f899cc869470cb40e8f72a5e81ad6~tplv-k3u1fbpfcp-watermark.image' }
+
       ]
     }
   },
@@ -36,6 +36,10 @@ export default {
     },
     changeFile(file, fileList) {
       this.fileList = fileList.map(item => item)
+    },
+    customUpload(params) {
+      console.log(params.file)
+      // 拦截自动上传
     }
 
   }
