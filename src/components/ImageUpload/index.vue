@@ -9,7 +9,7 @@
       :http-request="upload"
       :file-list="fileList"
       :class="{disabled:fileComputed}"
-
+      :before-upload="beforeUpload"
       :limit="1"
     >
       <i class="el-icon-plus" />
@@ -52,7 +52,25 @@ export default {
     // 拦截
     upload(params) {
       console.log(params.file)
+    },
+    // 检查大小
+    beforeUpload(file) {
+      const types = ['image/jpeg', 'image/gif', 'image/bmp', 'image/png']
+      if (!types.includes(file.type)) {
+        // includes 返回布尔值
+        this.$message.error('上传需要JPG,GIF,BMP,PNG图片格式')
+        return false
+      }
+      // 检查大小
+      const maxSize = 5
+      if (maxSize < file.size) {
+        this.$message.error('图片大小不能超过5M')
+        return false
+      }
+      return true
+      // 如果上面都符合，不return是undefined，undefined为fales，所以需要return true
     }
+
   }
 }
 </script>
