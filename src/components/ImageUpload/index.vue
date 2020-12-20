@@ -1,26 +1,32 @@
 <template>
+  <div>
+    <el-upload
+      action="#"
+      :on-preview="preview"
+      list-type="picture-card"
+      :on-remove="handleRemove"
+      :http-request="upload"
+      :file-list="fileList"
+      :class="{disabled:fileComputed}"
 
-  <el-upload
-    action="#"
-    list-type="picture-card"
-    :class="{disabled: fileComputed }"
-    :http-request="customUpload"
-    :on-change="changeFile"
-    :on-remove="handleRemove"
-    :file-list="fileList"
-  >
-    <i class="el-icon-plus" />
-  </el-upload>
-
+      :limit="1"
+    >
+      <i class="el-icon-plus" />
+    </el-upload>
+    <el-dialog title="图片" :visible.sync="showDialog">
+      <img :src="imgUrl" style="width:100%" alt="">
+    </el-dialog>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      fileList: [
+      fileList: [], // 图片地址设置为数组
+      showDialog: false, // 控制显示弹层
+      imgUrl: ''
 
-      ]
     }
   },
   computed: {
@@ -29,26 +35,29 @@ export default {
       return this.fileList.length === 1
     }
   },
+
   methods: {
-    handleRemove(file) {
-      //   将原来的文件给排除掉了 剩下的就是最新的数组了
-      this.fileList = this.fileList.filter(item => item.uid !== file.uid)
+    // 预览
+    preview(file) {
+    // 这里应该弹出一个层 层里是点击的图片地址
+      this.imgUrl = file.url
+      this.showDialog = true
     },
-    changeFile(file, fileList) {
-      this.fileList = fileList.map(item => item)
+    // 删除
+    handleRemove(file, fileList) {
+      this.fileList = [...fileList]
+      console.log(file, fileList)
     },
-    customUpload(params) {
+    // 拦截
+    upload(params) {
       console.log(params.file)
-      // 拦截自动上传
     }
-
   }
-
 }
 </script>
 
 <style>
-.disabled .el-upload--picture-card {
-  display: none
+.disabled .el-upload--picture-card{
+  display: none;
 }
 </style>
