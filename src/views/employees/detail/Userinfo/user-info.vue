@@ -91,7 +91,7 @@
 
         <el-form-item label="员工照片">
           <!-- 放置上传图片 -->
-          <ImageUpload />
+          <ImageUpload ref="mystaffPhoto" />
         </el-form-item>
         <el-form-item label="国家/地区">
           <el-select v-model="formData.nationalArea" class="inputW2">
@@ -366,6 +366,9 @@ export default {
   methods: {
     async getPersonalDetail() {
       this.formData = await getPersonalDetail(this.userId) // 获取员工数据
+      if (this.formData.staffPhoto) {
+        this.$refs.mystaffPhoto.fileList = [{ url: this.formData.staffPhoto, udload: true }]
+      }
     },
     async savePersonal() {
       await updatePersonal({ ...this.formData, id: this.userId })
