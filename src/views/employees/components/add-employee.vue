@@ -109,7 +109,7 @@ export default {
         this.$emit('addEmployee')
         // 清空窗口数据
         this.employeeData = {}
-
+        this.$message.success('添加员工成功')
         this.$refs.form.resetFields()
       } catch (error) {
         console.log(error)
