@@ -370,12 +370,17 @@ export default {
         this.$refs.mystaffPhoto.fileList = [{ url: this.formData.staffPhoto, udload: true }]
       }
     },
-    // 按钮基本信息
+    // 按钮下部分基本信息
     async savePersonal() {
-      await updatePersonal({ ...this.formData, id: this.userId })
+      const fileList = this.$refs.mystaffPhoto.fileList
+      if (fileList.some(item => !item.upload)) {
+        this.$message.warning('您当前还有图片没有上传完成！')
+        return
+      }
+      await updatePersonal({ ...this.formData, staffPhoto: fileList && fileList.length ? fileList[0].url : '' })
       this.$message.success('保存成功')
     },
-    // 按钮个人信息
+    // 按钮上部分个人信息
     async saveUser() {
       const fileList = this.$refs.staffPhoto.fileList
       if (fileList.some(item => !item.upload)) {
