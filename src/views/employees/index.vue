@@ -16,7 +16,14 @@
           <el-table-column align="center" label="序号" width="70">
             <template slot-scope="{ $index }">{{ (page.page-1) *page.size +1 +$index }}</template>
           </el-table-column>
-          <!-- <el-table-column align="center" type="index" label="序号" sortable="" /> -->
+          <el-table-column align="center" label="头像">
+            <template slot-scope="{row}">
+              <img
+                :src="row.staffPhoto "
+                style="border-radius: 50%; width: 100px; height: 100px; padding: 10px"
+                alt=""
+              ></template>
+          </el-table-column>
           <el-table-column align="center" prop="username" label="姓名" sortable="" />
           <el-table-column align="center" prop="mobile" label="手机号" sortable="" />
           <el-table-column align="center" prop="workNumber" label="工号" sortable="" />
