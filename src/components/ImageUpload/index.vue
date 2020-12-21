@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       fileList: [
-        { url: 'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1c5foH.img?h=533&w=799&m=6&q=60&o=f&l=f' }
+
       ], // 图片地址设置为数组
       showDialog: false, // 控制显示弹层
       imgUrl: '',
@@ -118,9 +118,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.disabled .el-upload--picture-card{
+.disabled
+{::v-deep .el-upload--picture-card{
   display: none;
-}
+}}
 .uploader {
 ::v-deep img{
   object-fit: cover
