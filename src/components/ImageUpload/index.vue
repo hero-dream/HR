@@ -19,7 +19,8 @@
     <el-dialog title="图片" :visible.sync="showDialog">
       <img :src="imgUrl" style="width:100%" alt="">
     </el-dialog>
-    <el-progress style="width: 180px" :percentage="percent" />
+
+    <el-progress v-if=" showPercent" style="width: 180px" :percentage="percent" />
   </div>
 </template>
 
@@ -34,6 +35,7 @@ export default {
 
       ], // 图片地址设置为数组
       showDialog: false, // 控制显示弹层
+      showPercent: false,
       imgUrl: '',
       percent: 0,
       currentFileUid: ''
@@ -77,6 +79,7 @@ export default {
         return false
       }
       // 记录id
+      this.showPercent = true
       this.currentFileUid = file.uid
       return true
       // 如果上面都符合，不return是undefined，undefined为fales，所以需要return true
@@ -107,9 +110,14 @@ export default {
             if (item.uid === this.currentFileUid) {
               item.url = 'http://' + data.Location
               //       // upload 为true 表示这张图片已经上传完毕 这个属性要为我们后期应用的时候做标记
+              item.upload = true
             }
             return item
           })
+          setTimeout(() => {
+            this.showPercent = false // 隐藏进度条
+            this.percent = 0 // 进度归0
+          }, 2000)
         }
       })
     }
