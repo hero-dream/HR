@@ -4,7 +4,7 @@
       <!-- 头部工具 -->
       <PageTools>
         <template slot="after">
-          <el-button type="primary">新增权限</el-button>
+          <el-button type="primary" @click="addPermissionList">新增权限</el-button>
         </template>
       </PageTools>
       <!-- 主要内容 -->
@@ -16,7 +16,7 @@
           <el-table-column align="center" label="操作">
             <template slot-scope="{row}">
               <el-button type="primary" icon="el-icon-edit" circle @click="updatePermission(row.id)" />
-              <el-button type="warning" icon="el-icon-plus" circle />
+              <el-button type="warning" icon="el-icon-plus" circle @click="addPermissionList" />
               <el-button type="danger" icon="el-icon-delete" circle @click="delPermission(row.id)" />
 
             </template>
@@ -25,7 +25,6 @@
       </el-card>
 
       <el-dialog :visible="showDialog" title="编辑权限" label-width="120" @close="btnCancel">
-
         <el-form :model="formData" label-width="80px">
           <el-form-item label="权限名称">
             <el-input v-model="formData.name" placeholder="请输入权限名称" />
@@ -102,6 +101,10 @@ export default {
       // const data = updatePermission(id)
       this.showDialog = true
       // console.log(data)
+    },
+    // 添加
+    async addPermissionList() {
+      this.showDialog = true
     },
     // 退出
     btnCancel() {
