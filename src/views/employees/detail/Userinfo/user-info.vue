@@ -367,7 +367,7 @@ export default {
     async getPersonalDetail() {
       this.formData = await getPersonalDetail(this.userId) // 获取员工数据
       if (this.formData.staffPhoto) {
-        this.$refs.mystaffPhoto.fileList = [{ url: this.formData.staffPhoto, udload: true }]
+        this.$refs.mystaffPhoto.fileList = [{ url: this.formData.staffPhoto, upload: true }]
       }
     },
     // 按钮下部分基本信息
@@ -394,7 +394,7 @@ export default {
     async getUserDetailById() {
       this.userInfo = await getUserDetailById(this.userId) // 获取id
       if (this.userInfo.staffPhoto) {
-        this.$refs.staffPhoto.fileList = [{ url: this.userInfo.staffPhoto, udload: true }]
+        this.$refs.staffPhoto.fileList = [{ url: this.userInfo.staffPhoto, upload: true }]
       }
     }
   }
