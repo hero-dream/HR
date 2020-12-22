@@ -26,7 +26,14 @@
           </el-table-column>
         </el-table>
       </el-card>
-
+      <el-dialog :visible="showDialog" title="编辑权限" @close="btnCancel">123
+        <el-row slot="footer" type="flex" justify="center">
+          <el-col :span="6">
+            <el-button size="small" @click="btnCancel">取消</el-button>
+            <el-button size="small" type="primary">确定</el-button>
+          </el-col>
+        </el-row>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -38,7 +45,7 @@ export default {
 
   data() {
     return {
-
+      showDialog: false,
       permissionList: []
     }
   },
@@ -63,8 +70,17 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    // 编辑
+    async updatePermission() {
+      // const data = updatePermission(id)
+      this.showDialog = true
+      // console.log(data)
+    },
+    // 退出
+    btnCancel() {
+      this.showDialog = false
     }
-
   }
 }
 </script>
