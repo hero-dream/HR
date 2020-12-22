@@ -17,37 +17,54 @@
           <el-table-column align="center" label="权限标识" prop="code" />
           <el-table-column align="center" label="权限描述" prop="description" />
           <el-table-column align="center" label="操作">
-            <template>
-              <el-button type="text">添加</el-button>
-              <el-button type="text">编辑</el-button>
-              <el-button type="text">删除</el-button>
+            <template slot-scope="{row}">
+              <el-button type="primary" icon="el-icon-edit" circle @click="updatePermission(row.id)" />
+              <el-button type="warning" icon="el-icon-plus" circle />
+              <el-button type="danger" icon="el-icon-delete" circle @click="delPermission(row.id)" />
+
             </template>
           </el-table-column>
         </el-table>
       </el-card>
+
     </div>
   </div>
 </template>
 
 <script>
-import { getPermissionList } from '@/api/permisson'
+import { getPermissionList, delPermission } from '@/api/permisson'
 import { tranListToTreeData } from '@/utils'
 export default {
 
   data() {
     return {
+
       permissionList: []
     }
   },
   created() {
-    this.getPermissionList()
+    this.getPermissionList() // 权限列表
   },
   methods: {
+    // 获取结构
     async getPermissionList() {
       const data = await getPermissionList()
       console.log(data)
-      this.permissionList = tranListToTreeData(data, '0')
+      this.permissionList = tranListToTreeData(data, '0') // 0为pid
+    },
+    // 删除
+    async delPermission(id) {
+      try {
+        const data = await delPermission(id)
+        console.log(data)
+        await this.$confirm('您确定删除该权限吗')
+        this.$message.success('删除权限成功')
+        this.getPermissionList()
+      } catch (error) {
+        console.log(error)
+      }
     }
+
   }
 }
 </script>
