@@ -4,7 +4,7 @@
       <!-- 头部工具 -->
       <PageTools>
         <template slot="after">
-          <el-button type="primary" @click="addPermissionList(1,'0')">新增权限</el-button>
+          <el-button type="primary">新增权限</el-button>
         </template>
       </PageTools>
       <!-- 主要内容 -->
@@ -16,7 +16,7 @@
           <el-table-column align="center" label="操作">
             <template slot-scope="{row}">
               <el-button type="primary" icon="el-icon-edit" circle @click="updatePermission(row.id)" />
-              <el-button type="warning" icon="el-icon-plus" circle @click="addPermissionList(2,row.id)" />
+              <el-button type="warning" icon="el-icon-plus" circle />
               <el-button type="danger" icon="el-icon-delete" circle @click="delPermission(row.id)" />
 
             </template>
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { getPermissionList, delPermission } from '@/api/permisson'
+import { getPermissionList, delPermission, addPermissionList, getPermissionDetail } from '@/api/permisson'
 import { tranListToTreeData } from '@/utils'
 export default {
 
@@ -65,6 +65,7 @@ export default {
     return {
       showDialog: false,
       permissionList: [],
+
       formData: {
         name: '', // 名称
         code: '', // 标识
@@ -84,7 +85,7 @@ export default {
     // 获取结构
     async getPermissionList() {
       const data = await getPermissionList()
-      console.log(data)
+      // console.log(data)
       this.permissionList = tranListToTreeData(data, '0') // 0为pid
     },
     // 删除
@@ -100,21 +101,13 @@ export default {
       }
     },
     // 编辑
-    async updatePermission() {
-      // const data = updatePermission(id)
+    async updatePermission(id) {
+      this.formData = await getPermissionDetail(id)
+
       this.showDialog = true
       // console.log(data)
     },
-    // 添加
-    async addPermissionList(type, pid) {
-      this.formData.type = type
-      this.formData.pid = pid
-      this.showDialog = true
-    },
-    // 确定按钮
-    async  btnOk() {
-      console.log(this.formData)
-    },
+
     // 退出
     btnCancel() {
       this.showDialog = false
