@@ -16,7 +16,7 @@
           <el-table-column align="center" label="序号" width="70">
             <template slot-scope="{ $index }">{{ (page.page-1) *page.size +1 +$index }}</template>
           </el-table-column>
-          <el-table-column align="center" label="头像">
+          <el-table-column align="center" label="头像" width="120">
             <template slot-scope="{row}">
               <img
                 :src="row.staffPhoto "
@@ -127,7 +127,6 @@ export default {
     imoort() {
       this.$router.push('imoort')
     }
-    // 角色弹出
 
   }
 }
