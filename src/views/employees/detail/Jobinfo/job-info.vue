@@ -217,7 +217,7 @@ export default {
     // 获取员工列表
     async getEmployeeList() {
       try {
-        this.depts = await getEmployeeList()
+        // this.depts = await getEmployeeList()
       } catch (error) {
         console.log(error)
       }
