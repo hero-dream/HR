@@ -4,7 +4,7 @@
       <!-- 头部工具 -->
       <PageTools>
         <template slot="after">
-          <el-button type="primary" @click="addPermissionList">新增权限</el-button>
+          <el-button type="primary" @click="addPermissionList(1,'0')">新增权限</el-button>
         </template>
       </PageTools>
       <!-- 主要内容 -->
@@ -16,7 +16,7 @@
           <el-table-column align="center" label="操作">
             <template slot-scope="{row}">
               <el-button type="primary" icon="el-icon-edit" circle @click="updatePermission(row.id)" />
-              <el-button type="warning" icon="el-icon-plus" circle @click="addPermissionList" />
+              <el-button type="warning" icon="el-icon-plus" circle @click="addPermissionList(2,row.id)" />
               <el-button type="danger" icon="el-icon-delete" circle @click="delPermission(row.id)" />
 
             </template>
@@ -47,7 +47,7 @@
         <el-row slot="footer" type="flex" justify="center">
           <el-col :span="6">
             <el-button size="small" @click="btnCancel">取消</el-button>
-            <el-button size="small" type="primary">确定</el-button>
+            <el-button size="small" type="primary" @click="btnOk">确定</el-button>
           </el-col>
         </el-row>
 
@@ -66,10 +66,13 @@ export default {
       showDialog: false,
       permissionList: [],
       formData: {
-        name: '',
-        code: '',
-        description: '',
-        enVisible: ''
+        name: '', // 名称
+        code: '', // 标识
+        description: '', // 描述
+        type: '', // 类型 该类型 不需要显示 因为点击添加的时候已经知道类型了
+        pid: '', // 因为做的是树 需要知道添加到哪个节点下了
+        enVisible: '0' // 开启
+
       }
 
     }
@@ -103,8 +106,14 @@ export default {
       // console.log(data)
     },
     // 添加
-    async addPermissionList() {
+    async addPermissionList(type, pid) {
+      this.formData.type = type
+      this.formData.pid = pid
       this.showDialog = true
+    },
+    // 确定按钮
+    async  btnOk() {
+      console.log(this.formData)
     },
     // 退出
     btnCancel() {
