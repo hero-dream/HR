@@ -1,9 +1,6 @@
 <template>
   <div class="dashboard-container">
     <div class="app-container">
-      <h2>
-        权限
-      </h2>
       <!-- 头部工具 -->
       <PageTools>
         <template slot="after">
@@ -26,13 +23,35 @@
           </el-table-column>
         </el-table>
       </el-card>
-      <el-dialog :visible="showDialog" title="编辑权限" @close="btnCancel">123
+
+      <el-dialog :visible="showDialog" title="编辑权限" label-width="120" @close="btnCancel">
+
+        <el-form :model="formData" label-width="80px">
+          <el-form-item label="权限名称">
+            <el-input v-model="formData.name" placeholder="请输入权限名称" />
+          </el-form-item>
+          <el-form-item label="权限标识">
+            <el-input v-model="formData.code" placeholder="请输入权限标识" />
+          </el-form-item>
+          <el-form-item label="权限描述">
+            <el-input v-model="formData.description" placeholder="请输入权限描述" />
+          </el-form-item>
+          <el-form-item label="权限激活">
+            <el-switch
+              v-model="formData.enVisible"
+              active-value="1"
+              inactive-value="0"
+            />
+          </el-form-item>
+        </el-form>
+        <!-- 尾部 -->
         <el-row slot="footer" type="flex" justify="center">
           <el-col :span="6">
             <el-button size="small" @click="btnCancel">取消</el-button>
             <el-button size="small" type="primary">确定</el-button>
           </el-col>
         </el-row>
+
       </el-dialog>
     </div>
   </div>
@@ -46,7 +65,14 @@ export default {
   data() {
     return {
       showDialog: false,
-      permissionList: []
+      permissionList: [],
+      formData: {
+        name: '',
+        code: '',
+        description: '',
+        enVisible: ''
+      }
+
     }
   },
   created() {
