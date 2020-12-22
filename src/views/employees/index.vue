@@ -44,7 +44,7 @@
               <el-button type="text" size="small">转正</el-button>
               <el-button type="text" size="small">调岗</el-button>
               <el-button type="text" size="small">离职</el-button>
-              <el-button type="text" size="small">角色</el-button>
+              <el-button type="text" size="small" @click="assignRole=true">角色</el-button>
 
               <el-button type="text" size="small" @click="delEmployee(scope.row.id)">删除</el-button>
             </template>
@@ -61,6 +61,7 @@
         </div>
         <!-- 组件 -->
         <Addemployee :show-dialog.sync="showDialog" :add-employee="getEmployeeList" />
+        <AssignRole :assign-role.sync="assignRole" />
       </el-card>
     </div>
   </div>
@@ -70,12 +71,14 @@
 import Addemployee from '@/views/employees/components/add-employee'
 import { getEmployeeList, delEmployee } from '@/api/employees'
 import Employees from '@/api/constant/employees'
+import AssignRole from '@/views/employees/components/assign-role'
 
 export default {
-  components: { Addemployee },
+  components: { Addemployee, AssignRole },
   data() {
     return {
       showDialog: false,
+      assignRole: false,
       userList: [], // 接收数据
       page: {
         page: 1,
@@ -124,6 +127,8 @@ export default {
     imoort() {
       this.$router.push('imoort')
     }
+    // 角色弹出
+
   }
 }
 </script>
