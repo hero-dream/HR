@@ -19,7 +19,7 @@
 <script>
 import { getRoleList } from '@/api/setting'
 import { getUserDetailById } from '@/api/user'
-
+import { assignRoles } from '@/api/employees'
 export default {
   props: {
     assignRole: {
@@ -55,12 +55,13 @@ export default {
     async   getUserDetailById(id) {
       const { roleIds } = await getUserDetailById(id)
       this.roleIds = roleIds
+    },
+    // 点击确定发送请求
+    async    btnOk() {
+      await assignRoles({ id: this.userId, roleIds: this.roleIds })
+
+      this.$emit('update:assignRole', false) // 关闭
     }
-    // // 点击确定发送请求
-    // async    btnOk() {
-    //   await assignRoles({ id: this.userId, roleIds: this.roleIds })
-    //   this.$emit('update:assignRole', false) // 关闭
-    // }
   }
 }
 </script>
