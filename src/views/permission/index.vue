@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { getPermissionList, delPermission, addPermissionList, getPermissionDetail } from '@/api/permisson'
+import { getPermissionList, delPermission, addPermissionList, getPermissionDetail, updatePermission } from '@/api/permisson'
 import { tranListToTreeData } from '@/utils'
 export default {
   data() {
@@ -105,7 +105,8 @@ export default {
     },
     // 编辑
     async updatePermission(id) {
-      this.formData = await getPermissionDetail(id)
+      const data = await getPermissionDetail(id)
+      this.formData = data
       this.showDialog = true
       // console.log(data)
     },
@@ -116,18 +117,22 @@ export default {
       this.showDialog = true
     },
     // 确定按钮
-    btnOk() {
-      // let data
-      // if (this.formData.id) {
-      //   data = await updatePermission(this.formData)
-      // } else {
-      addPermissionList(this.formData)
+    async   btnOk() {
+      let data
+      if (this.formData.id) {
+        data = await updatePermission(this.formData)
+        this.$message.success('编辑成功')
+      } else {
+        data = await addPermissionList(this.formData)
+        this.$message.success('添加成功')
+      }
+      console.log(data)
+
       this.formData = {}
-      // }
-      this.$message.success('添加成功')
+
       this.showDialog = false
       this.getPermissionList()
-      console.log(this.formData)
+      // console.log(this.formData)
     },
     // 退出
     btnCancel() {
