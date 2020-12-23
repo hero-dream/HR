@@ -10,11 +10,18 @@ export function getPermissionList(params) {
 // 添加权限点
 export function addPermissionList(data) {
   return request({
-    Method: 'POST',
+    method: 'post',
     url: '/sys/permission',
     data
   })
 }
+// export function addPermission(data) {
+//   return request({
+//     url: '/sys/permission',
+//     method: 'post',
+//     data
+//   })
+// }
 
 // 根据id删除权限点
 export function delPermission(id) {
@@ -27,7 +34,6 @@ export function delPermission(id) {
 // 根据ID获取权限点详情
 export function getPermissionDetail(id) {
   return request({
-    Method: 'GET',
     url: `/sys/permission/${id}`
 
   })
