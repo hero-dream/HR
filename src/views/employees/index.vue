@@ -44,7 +44,7 @@
               <el-button type="text" size="small">转正</el-button>
               <el-button type="text" size="small">调岗</el-button>
               <el-button type="text" size="small">离职</el-button>
-              <el-button type="text" size="small" @click="editRole">角色</el-button>
+              <el-button type="text" size="small" @click="editRole(scope.row.id)">角色</el-button>
 
               <el-button type="text" size="small" @click="delEmployee(scope.row.id)">删除</el-button>
             </template>
@@ -61,7 +61,7 @@
         </div>
         <!-- 组件 -->
         <Addemployee :show-dialog.sync="showDialog" :add-employee="getEmployeeList" />
-        <AssignRole :assign-role.sync="assignRole" />
+        <AssignRole ref="editRole" :assign-role.sync="assignRole" :user-id="userId" />
       </el-card>
     </div>
   </div>
@@ -80,6 +80,7 @@ export default {
       showDialog: false,
       assignRole: false,
       userList: [], // 接收数据
+      userId: '',
       page: {
         page: 1,
         size: 9,
@@ -128,8 +129,14 @@ export default {
       this.$router.push('imoort')
     },
     // 编辑角色
-    async editRole() {
-      this.assignRole = true
+    async editRole(id) {
+      try {
+        this.userId = id
+        await this.$refs.editRole.getUserDetailById(id) // 父组件调用子组件方法
+        this.assignRole = true
+      } catch (error) {
+        console.log(error)
+      }
     }
 
   }
