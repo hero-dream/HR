@@ -72,7 +72,7 @@
     </el-dialog>
 
     <el-dialog title="分配权限" :visible="showPermDialog" @close="btnPermCancel">
-      <el-tree :data="permData" :props="{ label: 'name'}" />
+      <el-tree :data="permData" :props="{ label: 'name'}" :show-checkbox="true" />
       <!-- 确定 取消 -->
       <el-row slot="footer" type="flex" justify="center">
         <el-col :span="6">
