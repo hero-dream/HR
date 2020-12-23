@@ -76,7 +76,11 @@ export default {
 
     }
   },
-
+  computed: {
+    title() {
+      return this.formData.id ? '编辑权限' : '添加权限'
+    }
+  },
   created() {
     this.getPermissionList() // 权限列表
   },
