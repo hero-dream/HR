@@ -44,7 +44,7 @@
               <el-button type="text" size="small">转正</el-button>
               <el-button type="text" size="small">调岗</el-button>
               <el-button type="text" size="small">离职</el-button>
-              <el-button type="text" size="small" @click="assignRole=true">角色</el-button>
+              <el-button type="text" size="small" @click="editRole">角色</el-button>
 
               <el-button type="text" size="small" @click="delEmployee(scope.row.id)">删除</el-button>
             </template>
@@ -126,6 +126,10 @@ export default {
     },
     imoort() {
       this.$router.push('imoort')
+    },
+    // 编辑角色
+    async editRole() {
+      this.assignRole = true
     }
 
   }
