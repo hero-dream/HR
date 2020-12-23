@@ -11,7 +11,7 @@
               <el-table-column align="center" prop="description" label="描述" />
               <el-table-column align="center" label="操作">
                 <template slot-scope="scope">
-                  <el-button size="small" type="success" @click="allocation">分配权限</el-button>
+                  <el-button size="small" type="success" @click="allocation(scope.row.id)">分配权限</el-button>
                   <el-button size="small" type="primary" @click="editRole(scope.row.id)">编辑</el-button>
                   <el-button size="small" type="danger" @click="delRole(scope.row.id)">删除</el-button>
                 </template>
@@ -72,7 +72,7 @@
     </el-dialog>
 
     <el-dialog title="分配权限" :visible="showPermDialog" @close="btnPermCancel">
-      <el-tree :data="permData" />
+      <el-tree :data="permData" :props="{ label: 'name'}" />
       <!-- 确定 取消 -->
       <el-row slot="footer" type="flex" justify="center">
         <el-col :span="6">
@@ -86,7 +86,8 @@
 </template>
 
 <script>
-
+import { getPermissionList } from '@/api/permisson'
+import { tranListToTreeData } from '@/utils/index'
 import { mapGetters } from 'vuex'
 import { getRoleList, delRole, getRoleDetail, updateRole, addRole, getCompanyInfo } from '@/api/setting'
 
@@ -232,7 +233,10 @@ export default {
       this.$refs.roleForm.resetFields()
     },
     // 分配权限
-    async  allocation() {
+    async  allocation(id) {
+      const data = await getPermissionList()
+      console.log(data)
+      this.permData = tranListToTreeData(data, '0')
       this.showPermDialog = true
     },
     btnPermCancel() {
