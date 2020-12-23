@@ -72,7 +72,7 @@
     </el-dialog>
 
     <el-dialog title="分配权限" :visible="showPermDialog" @close="btnPermCancel">
-      <el-tree :data="permData" :props="{ label: 'name'}" :show-checkbox="true" />
+      <el-tree :data="permData" :props="{ label: 'name'}" :show-checkbox="true" :check-strictly="true" node-key="id" :default-checked-keys="selectCheck" />
       <!-- 确定 取消 -->
       <el-row slot="footer" type="flex" justify="center">
         <el-col :span="6">
@@ -95,6 +95,7 @@ export default {
 
   data() {
     return {
+      selectCheck: [],
       permData: [],
       showPermDialog: false,
       showDialog: false,
@@ -184,6 +185,7 @@ export default {
         console.log(error)
       }
     },
+    // 编辑
     async editRole(id) {
       const data = await getRoleDetail(id)
       this.roleForm = data
@@ -234,8 +236,12 @@ export default {
     },
     // 分配权限
     async  allocation(id) {
+      // 获得总的
       const data = await getPermissionList()
+      // 获得当前的
+      const { permIds } = await getRoleDetail(id)
       console.log(data)
+      this.selectCheck = permIds
       this.permData = tranListToTreeData(data, '0')
       this.showPermDialog = true
     },
