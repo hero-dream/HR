@@ -4,7 +4,7 @@
       <!-- 头部工具 -->
       <PageTools>
         <template slot="after">
-          <el-button type="primary">新增权限</el-button>
+          <el-button type="primary" @click="addPermissionList(1,'0')">新增权限</el-button>
         </template>
       </PageTools>
       <!-- 主要内容 -->
@@ -16,7 +16,7 @@
           <el-table-column align="center" label="操作">
             <template slot-scope="{row}">
               <el-button type="primary" icon="el-icon-edit" circle @click="updatePermission(row.id)" />
-              <el-button type="warning" icon="el-icon-plus" circle />
+              <el-button v-if="row.type === 1" type="warning" icon="el-icon-plus" circle @click="addPermissionList(2, row.id)" />
               <el-button type="danger" icon="el-icon-delete" circle @click="delPermission(row.id)" />
 
             </template>
@@ -24,7 +24,7 @@
         </el-table>
       </el-card>
 
-      <el-dialog :visible="showDialog" title="编辑权限" label-width="120" @close="btnCancel">
+      <el-dialog :visible="showDialog" :title="title" label-width="120" @close="btnCancel">
         <el-form :model="formData" label-width="80px">
           <el-form-item label="权限名称">
             <el-input v-model="formData.name" placeholder="请输入权限名称" />
@@ -60,12 +60,10 @@
 import { getPermissionList, delPermission, addPermissionList, getPermissionDetail } from '@/api/permisson'
 import { tranListToTreeData } from '@/utils'
 export default {
-
   data() {
     return {
       showDialog: false,
       permissionList: [],
-
       formData: {
         name: '', // 名称
         code: '', // 标识
@@ -78,6 +76,7 @@ export default {
 
     }
   },
+
   created() {
     this.getPermissionList() // 权限列表
   },
@@ -103,11 +102,29 @@ export default {
     // 编辑
     async updatePermission(id) {
       this.formData = await getPermissionDetail(id)
-
       this.showDialog = true
       // console.log(data)
     },
-
+    // 添加
+    async addPermissionList(type, pid) {
+      this.formData.type = type
+      this.formData.pid = pid
+      this.showDialog = true
+    },
+    // 确定按钮
+    btnOk() {
+      // let data
+      // if (this.formData.id) {
+      //   data = await updatePermission(this.formData)
+      // } else {
+      addPermissionList(this.formData)
+      this.formData = {}
+      // }
+      this.$message.success('添加成功')
+      this.showDialog = false
+      this.getPermissionList()
+      console.log(this.formData)
+    },
     // 退出
     btnCancel() {
       this.showDialog = false
