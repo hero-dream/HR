@@ -132,6 +132,7 @@ export default {
     // 退出
     btnCancel() {
       this.showDialog = false
+      this.formData = {}
     }
   }
 }
