@@ -11,7 +11,7 @@
               <el-table-column align="center" prop="description" label="描述" />
               <el-table-column align="center" label="操作">
                 <template slot-scope="scope">
-                  <el-button size="small" type="success">分配权限</el-button>
+                  <el-button size="small" type="success" @click="allocation">分配权限</el-button>
                   <el-button size="small" type="primary" @click="editRole(scope.row.id)">编辑</el-button>
                   <el-button size="small" type="danger" @click="delRole(scope.row.id)">删除</el-button>
                 </template>
@@ -70,16 +70,32 @@
         </el-col>
       </el-row>
     </el-dialog>
+
+    <el-dialog title="分配权限" :visible="showPermDialog" @close="btnPermCancel">
+      <el-tree :data="permData" />
+      <!-- 确定 取消 -->
+      <el-row slot="footer" type="flex" justify="center">
+        <el-col :span="6">
+          <el-button size="small" @click="btnPermCancel">取消</el-button>
+          <el-button type="primary" size="small" @click="btnPermOK">确定</el-button>
+        </el-col>
+      </el-row>
+    </el-dialog>
   </div>
+
 </template>
 
 <script>
+
 import { mapGetters } from 'vuex'
 import { getRoleList, delRole, getRoleDetail, updateRole, addRole, getCompanyInfo } from '@/api/setting'
 
 export default {
+
   data() {
     return {
+      permData: [],
+      showPermDialog: false,
       showDialog: false,
       activeName: 'first',
       Rolelist: [], // 承接数组
@@ -214,6 +230,16 @@ export default {
         description: ''
       }
       this.$refs.roleForm.resetFields()
+    },
+    // 分配权限
+    async  allocation() {
+      this.showPermDialog = true
+    },
+    btnPermCancel() {
+      this.showPermDialog = false
+    },
+    btnPermOK() {
+      this.showPermDialog = false
     }
   }
 }
