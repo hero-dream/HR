@@ -1,6 +1,6 @@
 
 import { setToken as setTokenCookies, getToken } from '@/utils/auth'
-import { login, getUserInfo } from '@/api/user'
+import { login, getUserInfo, getUserDetailById } from '@/api/user'
 import { Message } from 'element-ui'
 
 export default {
@@ -39,10 +39,15 @@ export default {
         context.commit('setToken', data)
       })
     },
-    getUserInfo(context) {
-      return getUserInfo().then(data => {
-        context.commit('setUserInfo', data)
-      })
+    'getUserInfo': async(context) => {
+      const dataUserInfo = await getUserInfo()
+      const dataUserDetail = await getUserDetailById()
+      const UserInfo = {
+        ...dataUserInfo,
+        ...dataUserDetail
+      }
+      context.commit('setUserInfo', UserInfo)
     }
   }
 }
+
