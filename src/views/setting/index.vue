@@ -71,8 +71,20 @@
       </el-row>
     </el-dialog>
 
-    <el-dialog title="分配权限" :visible="showPermDialog" @close="btnPermCancel">
-      <el-tree :data="permData" :props="{ label: 'name'}" :show-checkbox="true" :check-strictly="true" node-key="id" :default-checked-keys="selectCheck" />
+    <el-dialog
+      title="分配权限"
+      :visible="showPermDialog"
+      @close="btnPermCancel"
+    >
+      <el-tree
+        ref="permTree"
+        :data="permData"
+        :props="{ label: 'name'}"
+        :show-checkbox="true"
+        :check-strictly="true"
+        node-key="id"
+        :default-checked-keys="selectCheck"
+      />
       <!-- 确定 取消 -->
       <el-row slot="footer" type="flex" justify="center">
         <el-col :span="6">
@@ -89,7 +101,7 @@
 import { getPermissionList } from '@/api/permisson'
 import { tranListToTreeData } from '@/utils/index'
 import { mapGetters } from 'vuex'
-import { getRoleList, delRole, getRoleDetail, updateRole, addRole, getCompanyInfo } from '@/api/setting'
+import { getRoleList, delRole, getRoleDetail, updateRole, addRole, getCompanyInfo, assignPerm } from '@/api/setting'
 
 export default {
 
@@ -236,19 +248,29 @@ export default {
     },
     // 分配权限
     async  allocation(id) {
+      this.roleId = id
+      // 应该去获取 这个id的 权限点
+      // 有id 就可以 id应该先记录下来
       // 获得总的
       const data = await getPermissionList()
       // 获得当前的
       const { permIds } = await getRoleDetail(id)
-      console.log(data)
+      // console.log(data)
       this.selectCheck = permIds
       this.permData = tranListToTreeData(data, '0')
       this.showPermDialog = true
     },
     btnPermCancel() {
+      this.permData = [] // 清空
       this.showPermDialog = false
     },
-    btnPermOK() {
+    async  btnPermOK() {
+      const id = this.roleId
+      // console.log(this.$refs.permTree.getCheckedKeys())
+      const permIds = this.$refs.permTree.getCheckedKeys() // 权限id的集合
+      const data = { id, permIds }
+      await assignPerm(data)
+      this.$message.success('修改权限成功')
       this.showPermDialog = false
     }
   }
