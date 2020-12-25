@@ -74,7 +74,7 @@ export const asyncRoutes = [
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: [...constantRoutes] // 动态，静态路由拼接
+  routes: [...constantRoutes, ...asyncRoutes] // 动态，静态路由拼接
 })
 
 const router = createRouter()
