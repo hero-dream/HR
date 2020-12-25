@@ -5,7 +5,7 @@
       <div>
         <div class="fl headL">
           <div class="headImg">
-            <img src="@/assets/common/head.jpg">
+            <img src="../../assets/imges/timg.jpg">
           </div>
           <div class="headInfoTip">
             <p class="firstChild">早安，{{ name }}，祝你开心每一天！</p>
@@ -24,7 +24,8 @@
           <div slot="header" class="header">
             <span>工作日历</span>
           </div>
-        <!-- 放置日历组件 -->
+          <!-- 放置日历组件 -->
+          <Work />
         </el-card>
         <!-- 公告 -->
         <el-card class="box-card">
@@ -120,9 +121,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Work from '@/views/dashboard/components/wok-calendar'
 
 export default {
   name: 'Dashboard',
+  components: { Work },
   computed: {
     ...mapGetters([
       'name'
