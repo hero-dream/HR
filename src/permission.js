@@ -15,15 +15,15 @@ router.beforeEach(async(to, from, next) => { // 函数(to, from, next)
       next('/') // 就跳转往首页
     } else {
       if (!store.getters.userId) {
-        await store.dispatch('user/getUserInfo') // 获取用户信息，异步
-        router.addRoutes(asyncRoutes) // 添加动态路由
-        next(to.path) // 如果是添加路由，由于vue-router的缺陷，需要在一个地址跳转一次才行
+        // const res = await store.dispatch('user/getUserInfo') // 获取用户信息，异步
+
+        // router.addRoutes(asyncRoutes) // 添加动态路由
+        // next(to.path) // 如果是添加路由，由于vue-router的缺陷，需要在一个地址跳转一次才行
       // }
       // 如果是添加路由，由于vue-router的缺陷，需要在一个地址跳转一次才行
       // next(to.path) // 没有else会死循环
-      } else {
-        next() // 如果没有路由就放行
       }
+      next() // 如果没有路由就放行
     }
   } else {
     if (whileList.indexOf(to.path) > -1) { // 当是白名单时
