@@ -48,7 +48,9 @@ export default {
         ...dataUserDetail
       }
       context.commit('setUserInfo', UserInfo)
+      console.log(UserInfo)
     }
+
   }
 }
 
