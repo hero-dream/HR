@@ -64,8 +64,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
- ::v-deep .el-calendar-day {
+::v-deep .el-calendar-day {
   height:  auto;
+  text-align: center;
  }
  ::v-deep .el-calendar-table__row td,::v-deep .el-calendar-table tr td:first-child,  ::v-deep .el-calendar-table__row td.prev{
   border:none;
@@ -76,12 +77,13 @@ export default {
   line-height: 40px;
   font-size: 14px;
 }
-.date-content .rest {
+.rest {
   color: #fff;
   border-radius: 50%;
   background: rgb(250, 124, 77);
   width: 20px;
   height: 20px;
+  text-align: center;
   line-height: 20px;
   display: inline-block;
   font-size: 12px;
