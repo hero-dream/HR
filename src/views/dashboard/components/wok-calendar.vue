@@ -1,14 +1,14 @@
 <template>
   <div>
     <el-row type="flex" justify="end">
-      <el-select v-model="currentYear" size="small" style="width: 120px">
+      <el-select v-model="currentYear" size="small" style="width: 120px" @change="dateChange">
         <el-option v-for="item in yearlist" :key="item" :label="item" :value="item"> {{ item }}  </el-option>
       </el-select>
-      <el-select v-model="currentMoth" size="small" style="width: 120px">
+      <el-select v-model="currentMoth" size="small" style="width: 120px" @change="dateChange">
         <el-option v-for="item in 12" :key="item" :label="item" :value="item"> {{ item }}  </el-option>
       </el-select>
     </el-row>
-    <el-calendar />
+    <el-calendar v-model="currentDate" />
   </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
     return {
       currentYear: null, // 当前年份
       currentMoth: null, // 当前月份
+      currentDate: null,
       yearlist: []
     }
   },
@@ -31,6 +32,17 @@ export default {
     this.currentMoth = this.startDate.getMonth() + 1 // 得出今年的 月份
     this.currentYear = this.startDate.getFullYear() // 得出今年的年份
     this.yearlist = Array.from(Array(100), (vlaue, index) => this.currentYear + index - 50)
+  },
+  methods: {
+    dateChange() {
+      // console.log('当前年份', this.currentYear)
+      // console.log('当前月份', this.currentMoth)
+      const year = this.currentYear
+      const moth = this.currentMoth
+      const data = `${year}-${moth}-1`
+      // console.log(data)
+      this.currentDate = new Date(data)
+    }
   }
 
 }
