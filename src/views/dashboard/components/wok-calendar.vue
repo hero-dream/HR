@@ -5,15 +5,28 @@
         <el-option v-for="item in yearlist" :key="item" :label="item" :value="item"> {{ item }}  </el-option>
       </el-select>
       <el-select v-model="currentMoth" size="small" style="width: 120px" @change="dateChange">
-        <el-option v-for="item in 12" :key="item" :label="item" :value="item"> {{ item }}  </el-option>
+        <el-option v-for="item in 12" :key="item" :label="item + '月' " :value="item"> {{ item }}  </el-option>
       </el-select>
     </el-row>
-    <el-calendar v-model="currentDate" />
+    <el-calendar v-model="currentDate">
+      <template slot="dateCell" slot-scope="scope" class="content">
+        {{ scope.data.day | getDay }}
+        <span v-if="isRest(scope.date)" class="rest">休</span>
+      </template>
+
+    </el-calendar>
   </div>
 </template>
 
 <script>
 export default {
+  filters: {
+    getDay(val) {
+      const day = val.split('-')[2]
+      return day.startsWith('0') ? day.substr(1) : day
+    }
+
+  },
   props: {
     startDate: {
       type: Date,
@@ -42,6 +55,9 @@ export default {
       const data = `${year}-${moth}-1`
       // console.log(data)
       this.currentDate = new Date(data)
+    },
+    isRest(date) {
+      return date.getDay() === 6 || date.getDay() === 0
     }
   }
 
