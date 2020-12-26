@@ -5,7 +5,7 @@
       <div>
         <div class="fl headL">
           <div class="headImg">
-            <img src="../../assets/imges/timg.jpg">
+            <img :src="$store.getters.staffPhoto">
           </div>
           <div class="headInfoTip">
             <p class="firstChild">早安，{{ name }}，祝你开心每一天！</p>
