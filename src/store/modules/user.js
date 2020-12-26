@@ -1,6 +1,6 @@
 
 import { setToken as setTokenCookies, getToken } from '@/utils/auth'
-import { login, getUserInfo as userInfoRequest, getUserDetailById } from '@/api/user'
+import { login, getUserInfo, getUserDetailById } from '@/api/user'
 import { Message } from 'element-ui'
 
 export default {
@@ -39,21 +39,16 @@ export default {
         context.commit('setToken', data)
       })
     },
-    getUserInfo(context) {
-      // 这个获取用户信息的 action, 其实返回一个 api/user 里面封装的请求函数
-      return userInfoRequest().then(data => {
-        context.commit('setUserInfo', data)
-      })
+    'getUserInfo': async(context) => {
+      // 发送用户基本信息
+      const dataUserInfo = await getUserInfo()
+      const dataUserDetail = await getUserDetailById(dataUserInfo.userId)
+      const UserInfo = {
+        ...dataUserInfo,
+        ...dataUserDetail
+      }
+      context.commit('setUserInfo', UserInfo)
     }
-    // 'getUserInfo': async(context) => {
-    //   const dataUserInfo = await getUserInfo()
-    //   const dataUserDetail = await getUserDetailById()
-    //   const UserInfo = {
-    //     ...dataUserInfo,
-    //     ...dataUserDetail
-    //   }
-    //   context.commit('setUserInfo', UserInfo)
-    // }
   }
 }
 
