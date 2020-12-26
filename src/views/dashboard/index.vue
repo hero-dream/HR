@@ -84,7 +84,8 @@
           <div slot="header" class="header">
             <span>绩效指数</span>
           </div>
-        <!-- 放置雷达图 -->
+          <!-- 放置雷达图 -->
+          <Radar />
         </el-card>
         <!-- 帮助连接 -->
         <el-card class="box-card">
@@ -120,12 +121,13 @@
 </template>
 
 <script>
+import Radar from './components/radar'
 import { mapGetters } from 'vuex'
 import Work from '@/views/dashboard/components/wok-calendar'
 
 export default {
   name: 'Dashboard',
-  components: { Work },
+  components: { Work, Radar },
   computed: {
     ...mapGetters([
       'name'
