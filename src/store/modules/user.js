@@ -1,5 +1,5 @@
 
-import { setToken as setTokenCookies, getToken } from '@/utils/auth'
+import { setToken as setTokenCookies, getToken, removeToken } from '@/utils/auth'
 import { login, getUserInfo, getUserDetailById } from '@/api/user'
 import { Message } from 'element-ui'
 
@@ -10,6 +10,10 @@ export default {
     UserInfo: {}
   },
   mutations: {
+    removeToken(state) {
+      state.token = ''
+      removeToken()
+    },
     // 修改token的mutations
     // data为页面token
     setToken(state, data) {
@@ -21,6 +25,9 @@ export default {
     // 获取用户名
     setUserInfo(state, data) {
       state.UserInfo = data
+    },
+    removeUserInfo(state) {
+      state.UserInfo = {}
     }
   },
   // 封装登录请求
@@ -49,6 +56,12 @@ export default {
       }
       context.commit('setUserInfo', UserInfo)
       console.log(UserInfo)
+    },
+    logout(context) {
+      // 清理token，跳转登录页
+      context.commit('removeToken')
+      // 清理userInfo用户数据
+      context.commit('removeUserInfo')
     }
 
   }
