@@ -30,27 +30,30 @@
           <el-table-column align="center" prop="workNumber" label="工号" sortable="" />
           <el-table-column align="center" prop="formOfEmployment" label="聘用形式" sortable="" :formatter="formOfEmployment" />
           <el-table-column align="center" prop="departmentName" label="部门" sortable="" />
-          <el-table-column align="center" prop="timeOfEntry" label="入职时间" :formatter="formOftimeOfEntry" sortable="" />
+          <el-table-column align="center" prop="timeOfEntry" label="入职时间" sortable="">
+            <template slot-scope="{row}">
+              {{ row.timeOfEntry | formOftimeOfEntry }}
+            </template>
+
+          </el-table-column>
           <el-table-column align="center" label="账户状态" sortable="">
 
             <template slot-scope="{row}">
               <el-switch :value="row.enableState === 1" />
             </template>
 
-          </el-table-column>
+            <el-table-column align="center" label="操作" sortable="" fixed="right" width="280">
+              <template slot-scope="scope">
+                <el-button type="text" size="small" @click="$router.push(`/employees/detail/${scope.row.id}`)">查看</el-button>
+                <el-button type="text" size="small">转正</el-button>
+                <el-button type="text" size="small">调岗</el-button>
+                <el-button type="text" size="small">离职</el-button>
+                <el-button type="text" size="small" @click="editRole(scope.row.id)">角色</el-button>
 
-          <el-table-column align="center" label="操作" sortable="" fixed="right" width="280">
-            <template slot-scope="scope">
-              <el-button type="text" size="small" @click="$router.push(`/employees/detail/${scope.row.id}`)">查看</el-button>
-              <el-button type="text" size="small">转正</el-button>
-              <el-button type="text" size="small">调岗</el-button>
-              <el-button type="text" size="small">离职</el-button>
-              <el-button type="text" size="small" @click="editRole(scope.row.id)">角色</el-button>
-
-              <el-button type="text" size="small" @click="delEmployee(scope.row.id)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+                <el-button type="text" size="small" @click="delEmployee(scope.row.id)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table-column></el-table>
         <!-- 分页组件 -->
         <div class="block">
           <el-pagination
@@ -76,6 +79,13 @@ import AssignRole from '@/views/employees/components/assign-role'
 
 export default {
   components: { Addemployee, AssignRole },
+  filters: {
+    // 时间
+    formOftimeOfEntry(oldValue) {
+      // console.log(cellValue.split('T'))
+      return oldValue.split('T')[0]
+    }
+  },
   data() {
     return {
       disImages: require('../../assets/imges/1.jpg'),
@@ -121,11 +131,6 @@ export default {
     formOfEmployment(row, column, cellValue, index) {
       const obj = Employees.hireType.find(item => item.id === cellValue)
       return obj ? obj.value : '未知'
-    },
-    // 时间
-    formOftimeOfEntry(row, column, cellValue, index) {
-      // console.log(cellValue.split('T'))
-      return cellValue.split('T')[0]
     },
     imoort() {
       this.$router.push('imoort')
