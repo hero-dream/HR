@@ -32,7 +32,7 @@
           <el-table-column align="center" prop="departmentName" label="部门" sortable="" />
           <el-table-column align="center" prop="timeOfEntry" label="入职时间" sortable="">
             <template slot-scope="{row}">
-              {{ row.timeOfEntry | formOftimeOfEntry }}
+              {{ row.timeOfEntry | formatDate }}
             </template>
 
           </el-table-column>
@@ -79,13 +79,7 @@ import AssignRole from '@/views/employees/components/assign-role'
 
 export default {
   components: { Addemployee, AssignRole },
-  filters: {
-    // 时间
-    formOftimeOfEntry(oldValue) {
-      // console.log(cellValue.split('T'))
-      return oldValue.split('T')[0]
-    }
-  },
+
   data() {
     return {
       disImages: require('../../assets/imges/1.jpg'),
