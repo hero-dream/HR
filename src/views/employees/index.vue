@@ -19,6 +19,7 @@
           <el-table-column align="center" label="头像" width="120">
             <template slot-scope="{row}">
               <img
+                v-imageerror="disImages"
                 :src="row.staffPhoto "
                 style="border-radius: 50%; width: 100px; height: 100px; padding: 10px"
                 alt=""
@@ -77,6 +78,7 @@ export default {
   components: { Addemployee, AssignRole },
   data() {
     return {
+      disImages: require('../../assets/imges/1.jpg'),
       showDialog: false,
       assignRole: false,
       userList: [], // 接收数据

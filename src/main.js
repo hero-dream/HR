@@ -18,6 +18,16 @@ import '@/permission' // permission control
 import Component from '@/components'
 Vue.use(Component) // 注册自己的插件
 
+// 自定义指令
+import { imageerror } from '@/directives'
+Vue.directive('imageerror', imageerror)
+// import * as directives from '@/directives'
+// const keys = Object.keys(directives)
+// keys.forEach(key => {
+//   console.log(directives[key])
+//   Vue.directive(key, directives[key])
+// })
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

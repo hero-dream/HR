@@ -5,7 +5,7 @@
       <div>
         <div class="fl headL">
           <div class="headImg">
-            <img :src="$store.getters.staffPhoto">
+            <img v-imageerror="disImages" :src="$store.getters.staffPhoto">
           </div>
           <div class="headInfoTip">
             <p class="firstChild">早安，{{ name }}，祝你开心每一天！</p>
@@ -128,6 +128,11 @@ import Work from '@/views/dashboard/components/wok-calendar'
 export default {
   name: 'Dashboard',
   components: { Work, Radar },
+  data() {
+    return {
+      disImages: require('../../assets/imges/1.jpg')
+    }
+  },
   computed: {
     ...mapGetters([
       'name'

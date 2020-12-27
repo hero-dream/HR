@@ -14,7 +14,7 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="$store.getters.staffPhoto" class="user-avatar">
+          <img v-imageerror="disImages" :src="$store.getters.staffPhoto" class="user-avatar">
           <span class="name">{{ $store.getters.name }}</span>
           <i class="el-icon-caret-bottom" style="color: #fff" />
         </div>
@@ -42,6 +42,11 @@ import Hamburger from '@/components/Hamburger'
 export default {
   components: {
     Hamburger
+  },
+  data() {
+    return {
+      disImages: require('../../assets/imges/1.jpg')
+    }
   },
   computed: {
     ...mapGetters(['sidebar', 'avatar'])
